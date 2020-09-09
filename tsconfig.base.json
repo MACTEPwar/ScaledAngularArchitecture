@@ -3,6 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@feature/*": ["src/app/feature/*"],
+      "@layout/*": ["src/app/layout/*"],
+      "@ui/*": ["src/app/shared/components/ui/*"],
+      "@gcomponents/*": ["src/app/shared/global/*"],
+      "@views/*": ["src/app/views/*"],
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

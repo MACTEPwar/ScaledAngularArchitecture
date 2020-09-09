@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ScaledAngularArchitecture"
+    }
+  },
+  "defaultProject": "ScaledAngularArchitecture",
+  "cli": {
+    "analytics": false
+  }
 }
