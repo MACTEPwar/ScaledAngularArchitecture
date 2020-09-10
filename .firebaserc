@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "scaledangulararchitecture": {
+      "hosting": {
+        "ScaledAngularArchitecture": [
+          "scaledangulararchitecture"
+        ]
+      }
+    }
+  }
+}
