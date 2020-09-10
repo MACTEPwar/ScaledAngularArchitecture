@@ -1,0 +1,921 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: $fontFamily;
+    color: $textColor;
+    -webkit-font-smoothing: antialiased;
+}
+
+#viewport {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    background-color: $lightnessGray;
+    display: block;
+    width: 100%;
+    height: calc(100vh - 100px);
+    overflow: auto;
+}
+
+// Top tabs and mainTopLine
+header {
+    width: 100%;
+    height: $heightLine;
+    background-color: $lightenGray;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    overflow: hidden;
+    .topMainLine {
+        display: flex;
+        align-items: center;
+        height: $heightLine;
+        overflow: hidden;
+        .firstTab {
+            font-size: $primeIconFontSize;
+            margin: 0;
+            background-color: $color3;
+            color: #fff;
+            display: inline-flex;
+            height: 100%;
+            width: 140px;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .tabName {
+                padding: 0px 10px 0 10px;
+                font-size: 1.1rem;
+            }
+            &:hover,
+            &:focus {
+                background-color: $color1;
+            }
+        }
+        ul.topLineTab,
+        ul.firstTab {
+            display: flex;
+            list-style: none;
+            flex-direction: row;
+            align-items: center;
+            height: $heightLine;
+            padding: 0;
+            box-shadow: inset 10px -3px 10px rgba(0, 0, 0, .2);
+            li {
+                cursor: pointer;
+                height: 100%;
+                background-color: $lightnessGray;
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                font-size: $fontSize;
+                letter-spacing: normal;
+                font-weight: 500;
+                border-right: 1px solid $color4;
+                white-space: nowrap;
+                &:hover,
+                &.active {
+                    background-color: $white;
+                }
+                .tabName {
+                    padding: 0 0 0 20px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+                .topTabCloseIcon {
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    outline: none;
+                    background-color: transparent;
+                    padding: 10px 15px 10px 10px;
+                }
+            }
+        }
+        button {
+            &.mainSideMenu {
+                height: $heightLine;
+                width: $heightLine;
+                border: none;
+                color: $white;
+                font-size: $primeIconFontSize;
+                background: $color2;
+                &:hover,
+                &:focus {
+                    outline: none;
+                    border: none;
+                    background-color: $color1;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.tempLogout {
+    height: 50px;
+    width: 100%;
+    background: #457b8f;
+    z-index: 999999;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    justify-content: flex-end;
+    padding: 0 20px;
+    button {
+        background: transparent;
+        font-size: 16px;
+        border: none;
+        padding: 0 10px;
+        cursor: pointer;
+        color: #fff;
+        font-family: $fontFamily;
+    }
+}
+
+.topTabScrollPanel {
+    width: 100%;
+    height: 50px;
+    &>div {
+        height: 100%;
+        .ui-scrollpanel-bar-x {
+            height: 5px !important;
+            ;
+            bottom: 0;
+            top: 45px !important;
+        }
+    }
+    .ui-scrollpanel-content {
+        width: auto;
+        padding: 0;
+        overflow: hidden;
+    }
+}
+
+.tabTopBtn {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    padding: 0;
+    width: 50px;
+    margin-left: auto;
+    button {
+        height: 100%;
+        border: none;
+        width: 100%;
+        margin-left: 1px;
+        cursor: pointer;
+        color: #fff;
+        background: $liteGray;
+        outline: none;
+        &:hover {
+            background: $gray;
+        }
+    }
+}
+
+footer {
+    color: $white;
+    flex-shrink: 0;
+    height: $heightLine;
+    background: $mainGradient;
+    .footerbar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        align-items: center;
+        height: 100%;
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            font-size: 14px;
+            li {
+                padding: 0 15px;
+                span {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+.sidebarMenu {
+    width: 300px;
+    padding: 0;
+    border: none;
+    position: relative;
+    .ui-treenode-children.ng-star-inserted {
+        background-color: rgba(105, 136, 147, 0.1);
+    }
+    .ui-sidebar {
+        padding: 0;
+        border: 0;
+        .sidebarMenuTitle {
+            background: $mainGradient;
+            padding: 0 0 0 15px;
+            height: $heightLine;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .sidebarMenuTree {
+            overflow: auto;
+            height: 100%;
+            div {
+                height: 100%;
+            }
+        }
+        .ui-sidebar-close {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: $heightLine;
+            width: $heightLine;
+            color: $white;
+            position: absolute;
+            top: 0;
+            right: 0;
+            &:hover,
+            &:focus,
+            &:active {
+                outline: none;
+                border: none;
+            }
+        }
+        .ui-tree {
+            .ui-tree-container {
+                .menuTreeCatTitle {
+                    border-bottom: 1px solid $lightenGray;
+                    .lastMenuLevel {
+                        div {
+                            span {
+                                padding-left: 15px;
+                            }
+                        }
+                    }
+                    .ui-treenode-content {
+                        height: 50px;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+                        position: relative;
+                        padding-left: 0 !important;
+                        &:focus,
+                        &:active {
+                            border: 0;
+                            box-shadow: none;
+                        }
+                        .ui-tree-toggler {
+                            position: absolute;
+                            height: 50px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-end;
+                            width: 100%;
+                        }
+                        .pi-caret-down {
+                            &:before {
+                                content: "\e933";
+                                right: 25px;
+                                position: absolute;
+                            }
+                        }
+                        .pi-caret-right {
+                            &:before {
+                                content: "\e930";
+                                right: 25px;
+                                position: absolute;
+                            }
+                        }
+                        .ui-treenode-label {
+                            display: flex;
+                            height: 50px;
+                            align-items: center;
+                            padding: 0 0 0 15px;
+                            border-radius: 0;
+                            overflow: hidden;
+                            width: 100%;
+                            >span {
+                                display: flex;
+                                align-items: center;
+                            }
+                        }
+                    }
+                    >div {
+                        text-transform: uppercase;
+                        font-weight: 500;
+                    }
+                    .sidebarIconTree {
+                        width: 20px;
+                        height: 20px;
+                        padding: 0;
+                        margin: 0 10px 0 0;
+                    }
+                    .ui-treenode-content.ui-treenode-selectable:hover {
+                        >span.ui-treenode-label.ui-corner-all {
+                            background-color: $color3;
+                            color: $white;
+                            >span img {
+                                filter: brightness(10);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dashboards
+.dashbg {
+    height: 100%;
+    background: $white;
+    background: -moz-linear-gradient(top, $white 1%, #ecf0f6 41%);
+    background: -webkit-linear-gradient(top, $white 1%, #ecf0f6 41%);
+    background: linear-gradient(to bottom, $white 1%, #ecf0f6 41%);
+    padding-top: 25px;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1240px;
+    padding: 0;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: flex-start;
+    list-style: none;
+}
+
+.dashcard {
+    width: 370px;
+    padding: 0;
+    margin: 22px 10px;
+    color: rgba(0, 0, 0, 0.87);
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 8px 8px 16px #d2d6db, -8px -8px 16px #ffffff;
+    list-style: none;
+    background-color: $lightnessGray !important;
+    font-family: $fontFamily;
+}
+
+.cdk-drag-preview {
+    padding: 0;
+    margin: 0;
+}
+
+.dashcardTitle {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+    cursor: move;
+    font-size: $fontSize;
+    text-transform: uppercase;
+    font-weight: 700;
+    //text-shadow: 0 1px 0 $white;
+    //color: $fontColor;
+    color: $white;
+}
+
+.dashMenuList {
+    list-style: none;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+    border-top: 1px solid $white;
+    margin: 0;
+}
+
+.dashItemBox {
+    background-color: rgba(255, 255, 255, .4);
+    width: 105px;
+    height: 105px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    position: relative;
+    margin: 5px;
+    color: $fontColor;
+    transition: all linear 0.05s;
+    &:hover {
+        background-color: #ffffff;
+        transform: scale(1.04);
+        box-shadow: 0 4px 0px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
+    }
+    &.active {
+        color: $white;
+        transform: scale(1);
+        img {
+            filter: contrast(0%) brightness(300%);
+        }
+        .dashItemBoxTitle {
+            color: $white;
+            text-shadow: none;
+        }
+    }
+    .dashItemBoxTitle {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        word-break: break-word;
+        cursor: pointer;
+        text-align: center;
+        font-size: $fontSize;
+        font-weight: 400;
+        text-shadow: 0 1px 0 $white;
+        color: $fontColor;
+        padding: 4px;
+        line-height: 1rem;
+        letter-spacing: -0.5px;
+        img {
+            margin: 5px auto;
+        }
+    }
+}
+
+.dashMenuListChild {
+    position: absolute;
+    margin-top: 120px;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid $liteGray;
+    border-bottom: 1px solid $liteGray;
+    padding: 10px;
+}
+
+.childDashIcon {
+    transform: scaleY(-1);
+    margin: 0 10px;
+    color: #aaa;
+}
+
+.dashChildContainer {
+    border-top: 1px solid #C1C7D2;
+    border-bottom: 1px solid #C1C7D2;
+    margin-left: -10px;
+    margin-right: -10px;
+    width: 370px;
+    background-color: $white;
+    .pi {
+        font-size: 0.7rem;
+    }
+    .ui-tree {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            display: block;
+            font-size: $fontSize;
+            .dashChildItem {
+                padding: 10px 10px 10px 20px;
+                width: 100%;
+                display: block;
+                color: $fontColor;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.card_1 {
+    border-color: $catalogColor;
+    .dashcardTitle {
+        border-bottom: 1px solid $catalogColor;
+        background: $catalogColor;
+    }
+    .dashItemBox {
+        border-color: $catalogColor;
+        &.active {
+            background-color: $catalogColor;
+            .dashcardTitle {
+                color: $white;
+                text-shadow: none;
+            }
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $catalogColor;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card_2 {
+    border-color: $goodsColor;
+    .dashcardTitle {
+        border-bottom: 1px solid $goodsColor;
+        background: $goodsColor;
+    }
+    .dashItemBox {
+        border-color: $goodsColor;
+        &.active {
+            background-color: $goodsColor;
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $goodsColor;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card_3 {
+    border-color: $leftoversColor;
+    .dashcardTitle {
+        border-bottom: 1px solid $leftoversColor;
+        background: $leftoversColor
+    }
+    .dashItemBox {
+        border-color: $leftoversColor;
+        &.active {
+            background-color: $leftoversColor;
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $leftoversColor;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card_4 {
+    border-color: $documentsColor;
+    .dashcardTitle {
+        border-bottom: 1px solid $documentsColor;
+        background: $documentsColor;
+    }
+    .dashItemBox {
+        border-color: $documentsColor;
+        &.active {
+            background-color: $documentsColor;
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $documentsColor;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card_5 {
+    border-color: $analyticsColor;
+    .dashcardTitle {
+        border-bottom: 1px solid $analyticsColor;
+        background: $analyticsColor;
+    }
+    .dashItemBox {
+        border-color: $analyticsColor;
+        &.active {
+            background-color: $analyticsColor;
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $analyticsColor;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card_6 {
+    border-color: $color1;
+    .dashcardTitle {
+        border-bottom: 1px solid $color1;
+        background: $color1;
+    }
+    .dashItemBox {
+        border-color: $color1;
+        &.active {
+            background-color: $color1;
+        }
+    }
+    .dashChildContainer {
+        .ui-tree {
+            .dashChildItem {
+                &:hover,
+                &:focus {
+                    background-color: $color1;
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dashcard:last-child {
+    border: none;
+}
+
+// Toolbar
+.table_toolbar {
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #c8c8c8;
+    background-color: $white;
+}
+
+//Tables
+.hideFilter {
+    display: none;
+}
+
+.sidebarBottomForLiksData.ui-sidebar-bottom {
+    height: auto;
+    /*min-height: 40em;*/
+}
+
+// Toolbar -------------
+.toolbarButton {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $color1;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+    transition: all linear 0.05s;
+    &:hover,
+    &:focus {
+        border-color: $lightnessGray;
+        box-shadow: 0 3px 0px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+        background-color: white;
+        color: $fontColor;
+        .toolbarIcon {
+            color: $fontColor;
+        }
+    }
+    .toolbarIcon {
+        font-size: 1.285rem;
+    }
+    .toolbarName {
+        font-size: 0.857rem;
+        text-shadow: 0 1px 1px #ffffff;
+        margin: 3px 0;
+    }
+}
+
+.p-overlay-badge {
+    position: relative;
+    display: inline-block;
+    &:hover,
+    &:focus {
+        .toolbar-badge {
+            transform: translateY(-3px);
+        }
+    }
+}
+
+.toolbar-badge {
+    background: #fff;
+    color: #269698;
+    border: 1px solid #457b8f;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border-radius: 15px;
+    transition: all linear 0.05s;
+}
+
+ul.popover {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        padding: 10px 5px;
+        span {
+            cursor: pointer;
+            &:hover {
+                color: $color2;
+            }
+        }
+    }
+}
+
+// Table modal
+.modal-langSelect {
+    display: flex;
+    padding: 0 !important;
+    margin-top: 10px;
+    input {
+        flex: 3;
+    }
+    label {
+        flex: 1;
+    }
+}
+
+.inputInvalid {
+    color: red;
+    font-size: 14px;
+    padding: 5px 0px;
+}
+
+.dateTimeInputForm {
+    display: flex;
+    float: left;
+    justify-content: flex-start;
+    width: 50%;
+    align-items: center;
+    margin-bottom: 10px;
+    label {
+        margin-right: 10px;
+    }
+}
+
+// AlertNotification
+.loginAlert {
+    .ui-toast-message-error {
+        border-radius: 5px;
+        .ui-toast-icon {
+            top: 17px;
+            left: 11px;
+        }
+    }
+}
+
+body {
+    .langbox {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+    }
+    .langfooter {
+        display: inline;
+        .ui-dropdown-items.ui-dropdown-list.ui-widget-content {
+            display: inline;
+        }
+        span {
+            color: #fff;
+        }
+    }
+    .langSelector {
+        .ui-dropdown.ui-widget {
+            min-width: 100px !important;
+            width: 100px !important;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            .ui-inputtext {
+                background-color: transparent;
+            }
+            .ui-dropdown-trigger {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+// FORMS
+.ui-calendar .ui-calendar-button {
+    height: auto !important;
+}
+
+.btngroupInput {
+    display: inline-block;
+    width: 100%;
+    align-items: baseline;
+    border-radius: 4px;
+    border-top: 1px solid #c8c8c8;
+    border-bottom: 1px solid #c8c8c8;
+    border-left: 1px solid #c8c8c8;
+    position: relative;
+    margin-top: 27px;
+    height: 35px;
+    button {
+        float: right;
+        display: block;
+        height: 100%;
+        border-radius: 0 3px 3px 0;
+    }
+    span {
+        float: left;
+        display: block;
+        padding: 7px;
+        height: 100%;
+    }
+    label {
+        position: absolute;
+        margin-top: -27px;
+    }
+}
+
+.checkBoxLineEnd {
+    display: block;
+    padding: 10px;
+    margin-top: 15px;
+    float: right;
+}
+
+.checkBoxLineStart {
+    display: block;
+    margin-top: 15px;
+    float: left;
+}
+
+.ui-datepicker-month,
+.ui-datepicker-year {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    option {
+        font-size: 14px;
+    }
+}
+
+.p-float-label label {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+i.sup {
+    vertical-align: super;
+    position: absolute;
+    margin-left: 3px;
+    margin-top: -3px;
+    font-style: normal;
+    font-size: 16px;
+    color: #999;
+}

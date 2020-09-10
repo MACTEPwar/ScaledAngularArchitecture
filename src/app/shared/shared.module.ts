@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FaIconPipe } from './pipes/fa-icon/fa-icon.pipe';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [FaIconPipe],
   imports: [
     CommonModule
   ]
