@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://192.168.16.18',
+  imagePath: './assets/maintheme/images/',
+  locales: ['uk', 'ru'],
+  defaultLocale: 'uk',
 };
 
 /*
