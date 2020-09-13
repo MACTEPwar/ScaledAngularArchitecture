@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://192.168.16.18',
-  imagePath: './assets/maintheme/images/',
+  imagePath: './assets/images/',
   locales: ['uk', 'ru'],
   defaultLocale: 'uk',
 };

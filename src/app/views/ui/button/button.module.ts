@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonRoutingModule } from './button-routing.module';
 import { ButtonComponent } from './button/button.component';
 import { RouterModule } from '@angular/router';
-import { AlButtonModule } from '@ui/al-button/al-button.module';
+import { AlButtonModule } from '@components/al-button/al-button.module';
 
 
 @NgModule({
