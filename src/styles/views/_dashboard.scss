@@ -1,3 +1,54 @@
-.asd {
-    color: red;
+@import 'abstract/variables';
+// Dashboards
+.dashbg {
+    height: 100%;
+    // background: $white;
+    background: -moz-linear-gradient(top, $white 1%, #ecf0f6 41%);
+    background: -webkit-linear-gradient(top, $white 1%, #ecf0f6 41%);
+    background: linear-gradient(to bottom, $white 1%, #ecf0f6 41%);
+    padding-top: 25px;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1240px;
+    padding: 0;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: flex-start;
+    list-style: none;
+}
+
+.dashcard {
+    width: 370px;
+    padding: 0;
+    margin: 22px 10px;
+    color: rgba(0, 0, 0, 0.87);
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 8px 8px 16px #d2d6db, -8px -8px 16px #ffffff;
+    list-style: none;
+    background-color: $lightnessGray !important;
+    font-family: $fontFamily;
+}
+
+.cdk-drag-preview {
+    padding: 0;
+    margin: 0;
+}
+
+.dashMenuListChild {
+    position: absolute;
+    margin-top: 120px;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid $liteGray;
+    border-bottom: 1px solid $liteGray;
+    padding: 10px;
+}
+
+.dashcard:last-child {
+    border: none;
 }
