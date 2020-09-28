@@ -1,4 +1,12 @@
-<p-sidebar [(visible)]="displaySidebar" class="sidebarMenu">
+<p-sidebar [(visible)]="displaySidebar" class="sidebarMenu" style="padding: 0;
+border: none;
+position: fixed;
+transition: transform .3s;
+top: 0;
+left: 0;
+width: 20em;
+height: 100%;
+transform: translateX(-100%);">
     <div class="sidebarMenuTitle"><img src="{{imagePath}}logofoot.png" alt="logo" /></div>
     <p-tree class="sidebarMenuTree" metaKeySelection="false" [value]="myMenu" selectionMode="single" (onNodeSelect)="nodeSelect($event)">
         <ng-template let-node pTemplate="picture">
@@ -10,25 +18,25 @@
         </ng-template>
     </p-tree>
     <div class="tempLogout">
-        <button (click)="logout()"><fa-icon [icon]="'fa-sign-out-alt' | faIcon"></fa-icon> Выйти</button>
+        <button (click)="logout()"><fa-icon [icon]="'sign-out-alt' | faIcon"></fa-icon> Выйти</button>
     </div>
 
 </p-sidebar>
 
 <div class="topMainLine">
-    <!-- <button (click)="displaySidebar = true" class="mainSideMenu"><fa-icon [icon]="faThList"></fa-icon></button>
+    <button (click)="displaySidebar = true" class="mainSideMenu"><fa-icon [icon]="'th-list'| faIcon"></fa-icon></button>
 
     <div class="firstTab" (click)="clickDashboard()">
-      <fa-icon [icon]="faTh"></fa-icon>
-      <div class="tabName" >Dashboard</div>
+        <fa-icon [icon]="'th' | faIcon"></fa-icon>
+        <div class="tabName">Dashboard</div>
     </div>
     <div style="width: calc(100% - 240px)">
         <p-scrollPanel #scrollPanel class="topTabScrollPanel">
             <ul mouseWheel class="topLineTab" style="margin-bottom: 0px;margin-top: 0px;" (mouseWheelUp)="onScrollTabsUp()" (mouseWheelDown)="onScrollTabsDown()" #scrollTabItems>
-                <li [ngClass]="{active:tab.active}" *ngFor="let tab of topTabs; let index = index">
+                <li [ngClass]="{active:tab.active}" *ngFor="let tab of tabs| async; let index = index">
                     <div class="tabName" (click)="clickTab(tab)">{{tab.name}}</div>
                     <button class="topTabCloseIcon" *ngIf="!!tab.canClose" (click)="closeTab($event, index)">
-                    <fa-icon [icon]="faTimes"></fa-icon>
+                    <fa-icon [icon]="'times' | faIcon"></fa-icon>
                 </button>
                 </li>
             </ul>
@@ -36,8 +44,8 @@
     </div>
 
 
-    <div class="tabTopBtn" >
-       <button (click)="onScrollTabsUp()"> <fa-icon [icon]="faChevronLeft"></fa-icon> </button>
-       <button (click)="onScrollTabsDown()"> <fa-icon [icon]="faChevronRight"></fa-icon> </button>
-    </div> -->
+    <div class="tabTopBtn">
+        <button (click)="onScrollTabsUp()"> <fa-icon [icon]="'chevron-left'| faIcon"></fa-icon> </button>
+        <button (click)="onScrollTabsDown()"> <fa-icon [icon]="'chevron-right'| faIcon"></fa-icon> </button>
+    </div>
 </div>

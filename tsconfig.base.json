@@ -5,10 +5,11 @@
     "baseUrl": "./",
     "paths": {
       "@core/*": ["src/app/core/*"],
-      "@feature/*": ["src/app/feature/*"],
+      "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],
       "@components/*": ["src/app/shared/components/*"],
       "@views/*": ["src/app/views/*"],
+      "@shared/*": ["src/app/shared/*"],
       "@sviews/*": ["src/styles/views/*"],
       "@slayout/*": ["src/styles/layout/*"],
       "@scomponents/*": ["src/styles/components/*"],

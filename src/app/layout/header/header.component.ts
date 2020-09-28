@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { faTh, faThList } from '@fortawesome/pro-duotone-svg-icons';
 import { faTimes, faChevronLeft, faChevronRight, faSignOutAlt } from '@fortawesome/pro-light-svg-icons';
 import { TreeNode as TNode } from 'primeng/api';
 import { environment } from '../../../environments/environment';
+import { ITab } from '@features/tab/types/interface/i-tab';
+import { ITabService } from '@features/tab/service/intefaces/i-tab.service';
 // import { TopTab } from '../../../shared/top-tab/models/top-tab';
 // import { TopTabService } from '../../../shared/top-tab/top-tab.service';
 import { MainMenuService } from '@core/main-menu/services/concrete/main-menu.service';
 import { IMainMenu } from '@core/main-menu/types/interfaces/i-main-menu';
+import { BehaviorSubject } from 'rxjs';
 // import { AuthenticationService } from '@core/authentication/services/concrete/authentication.service';
 
 @Component({
@@ -17,34 +20,29 @@ import { IMainMenu } from '@core/main-menu/types/interfaces/i-main-menu';
 })
 export class HeaderComponent implements OnInit {
   public menu: IMainMenu[] = [];
-  // public topTabs: TopTab[] = [];
+  public tabs: BehaviorSubject<Array<ITab>>;
   public myMenu: TNode[] = [];
   public displaySidebar = false;
 
   imagePath = environment.imagePath;
-  // faThList = faThList;
-  // faTimes = faTimes;
-  // faTh = faTh;
-  // faChevronLeft = faChevronLeft;
-  // faChevronRight = faChevronRight;
-  // faSignOutAlt = faSignOutAlt;
 
-  @ViewChild('scrollPanel', {read: ElementRef})
+  @ViewChild('scrollPanel', { read: ElementRef })
   scrollPanel: ElementRef;
   @ViewChild('scrollTabItems')
   scrollTabItems: ElementRef;
-
-  tabListCount = 0;
-  tabWidth;
 
   scrollPanelMoveStep = 300;
 
   constructor(
     private mainmenuService: MainMenuService,
-    // private toptabService: TopTabService,
+    @Inject('ITabService') private tabService: ITabService,
     private router: Router,
-    // private authService: AuthenticationService
-  ) { }
+  ) {
+    this.tabs = new BehaviorSubject<Array<ITab>>(this.tabService.tabList);
+    this.tabs.subscribe(
+      s => this.tabService.tabList = s
+    );
+  }
 
   nodeSelect(e: any): void {
     if (
@@ -97,27 +95,27 @@ export class HeaderComponent implements OnInit {
   //   this.topTabs = this.toptabService.getTabs();
   // }
 
-  // closeTab(event: Event, index: number): void {
-  //   if (this.topTabs[index].active) {
-  //     if (this.topTabs.length > 1) {
-  //       this.clickTab(this.topTabs[index - 1]);
-  //     } else {
-  //       this.clickDashboard();
-  //     }
-  //   }
-  //   this.topTabs.splice(index, 1);
-  //   event.stopPropagation();
-  // }
+  closeTab(event: Event, index: number): void {
+    if (this.tabs.getValue()[index].active) {
+      if (this.tabs.getValue().length > 1) {
+        this.clickTab(this.tabs.getValue()[index - 1]);
+      } else {
+        this.clickDashboard();
+      }
+    }
+    this.tabs.next(this.tabs.getValue().splice(index, 1));
+    event.stopPropagation();
+  }
 
-  // clickTab(tab: TopTab): void {
-  //   this.toptabService.activateTab(tab);
-  //   this.router.navigate([tab.url]);
-  // }
+  clickTab(tab: ITab): void {
+    this.tabService.activateTab(tab);
+    this.router.navigate([tab.url]);
+  }
 
-  // clickDashboard(): void {
-  //   this.toptabService.disactivateAllTabs();
-  //   this.router.navigate(['dashboard']);
-  // }
+  clickDashboard(): void {
+    this.tabService.disactivateAllTabs();
+    this.router.navigate(['dashboard']);
+  }
 
   logout(): void {
     // this.authService.logout();
@@ -132,13 +130,10 @@ export class HeaderComponent implements OnInit {
   }
 
   moveScrollPanel(mode: boolean): void {
-
-
-
     const element = this.scrollPanel.nativeElement.querySelectorAll('.ui-scrollpanel-content')[0];
     if (element) {
       if (mode) {
-        element.scrollLeft =  element.scrollLeft < this.scrollPanelMoveStep ? 0 : element.scrollLeft - this.scrollPanelMoveStep;
+        element.scrollLeft = element.scrollLeft < this.scrollPanelMoveStep ? 0 : element.scrollLeft - this.scrollPanelMoveStep;
       } else {
         element.scrollLeft += this.scrollPanelMoveStep;
       }
