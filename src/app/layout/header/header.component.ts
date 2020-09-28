@@ -11,7 +11,7 @@ import { IMainMenu } from '@core/main-menu/types/interfaces/i-main-menu';
 // import { AuthenticationService } from '@core/authentication/services/concrete/authentication.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'al-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
 })
@@ -22,12 +22,12 @@ export class HeaderComponent implements OnInit {
   public displaySidebar = false;
 
   imagePath = environment.imagePath;
-  faThList = faThList;
-  faTimes = faTimes;
-  faTh = faTh;
-  faChevronLeft = faChevronLeft;
-  faChevronRight = faChevronRight;
-  faSignOutAlt = faSignOutAlt;
+  // faThList = faThList;
+  // faTimes = faTimes;
+  // faTh = faTh;
+  // faChevronLeft = faChevronLeft;
+  // faChevronRight = faChevronRight;
+  // faSignOutAlt = faSignOutAlt;
 
   @ViewChild('scrollPanel', {read: ElementRef})
   scrollPanel: ElementRef;
@@ -119,9 +119,9 @@ export class HeaderComponent implements OnInit {
   //   this.router.navigate(['dashboard']);
   // }
 
-  // logout(): void {
-  //   this.authService.logout();
-  // }
+  logout(): void {
+    // this.authService.logout();
+  }
 
   onScrollTabsUp(event = null): void {
     this.moveScrollPanel(true);

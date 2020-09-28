@@ -9,9 +9,9 @@
             <span>{{node.label}}</span>
         </ng-template>
     </p-tree>
-  <div class="tempLogout">
-    <button (click)="logout()" ><fa-icon [icon]="faSignOutAlt"></fa-icon> Выйти</button>
-  </div>
+    <div class="tempLogout">
+        <button (click)="logout()"><fa-icon [icon]="'fa-sign-out-alt' | faIcon"></fa-icon> Выйти</button>
+    </div>
 
 </p-sidebar>
 
