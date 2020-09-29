@@ -8,21 +8,28 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../shared/shared.module';
 import { TabModule } from '@features/tab/tab.module';
+import { LangSelectComponent } from './lang-select/lang-select.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LangSelectComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     SidebarModule,
     TreeModule,
     ScrollPanelModule,
     TabModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DropdownModule
   ],
   exports: [
     HeaderComponent,

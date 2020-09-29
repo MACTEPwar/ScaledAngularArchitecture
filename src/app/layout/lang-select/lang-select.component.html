@@ -1,0 +1,12 @@
+<p-dropdown [options]="lang" [(ngModel)]="selectedLang" class="langSelector" (onChange)="checkLang()">
+    <ng-template let-item pTemplate="selectedItem" style="min-width: 100px">
+        <img src="../../../../assets/locale/icons/{{item.label}}.png" style="width:24px; margin-right:20px; vertical-align:middle" />
+        <span style="vertical-align:middle">{{item.label}}</span>
+    </ng-template>
+    <ng-template let-langs pTemplate="item">
+        <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+            <img src="../../../../assets/locale/icons/{{langs.label}}.png" style="width:24px;position:absolute;top:1px;left:5px" />
+            <div style="font-size:14px;float:right;margin-top:4px">{{langs.label}}</div>
+        </div>
+    </ng-template>
+</p-dropdown>

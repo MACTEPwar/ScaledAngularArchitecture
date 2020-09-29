@@ -11,7 +11,7 @@ export class TabService implements ITabService {
   constructor(
     @Inject('uniq') @Optional() public uniq?: Array<string>
   ) {
-    this.keys = uniq;
+    this.keys = uniq || new Array<string>('url');
     this.tabList = new Array<ITab>();
   }
 
@@ -36,9 +36,10 @@ export class TabService implements ITabService {
     } else {
       // if ITab
       const tab = value as ITab;
-      // дописать
       const finder = (element: ITab, ind: number, array: Array<ITab>): boolean => {
-        if (ind === 3) {
+        // TODO: реализовать если нужно несколько ключей
+        const finderValue: string = (value as ITab).url;
+        if (element.url === finderValue) {
           return true;
         }
       };
@@ -51,18 +52,26 @@ export class TabService implements ITabService {
   }
 
   findTab(tab: ITab): ITab {
-    throw new Error('Method not implemented.');
+    const finder = (element: ITab, ind: number, array: Array<ITab>): boolean => {
+      // TODO: реализовать если нужно несколько ключей
+      const finderValue: string = tab.url;
+      if (element.url === finderValue) {
+        return true;
+      }
+    };
+    return this.tabList.find(finder);
   }
 
   activateTab(tab: ITab): void {
-    throw new Error('Method not implemented.');
+    this.tabList.forEach((element) => {
+      element.active = element.url === tab.url;
+    });
+
   }
 
   disactivateAllTabs(): void {
-    throw new Error('Method not implemented.');
+    this.tabList.forEach((element) => {
+      element.active = false;
+    });
   }
-
-  // private finder(element, index, array): number {
-
-  // }
 }
