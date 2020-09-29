@@ -1,0 +1,111 @@
+<p-dialog [header]=" 'Forms.addToCatalog' | translate " [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '800px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+    <!--    <h3>{{getEntityDescription()}}</h3>-->
+    <div [formGroup]="profileForm" (ngSubmit)="create()">
+        <div *ngFor="let field of template.fields">
+            <div *ngIf="field.editable !== false">
+                <ng-container [ngSwitch]="field.type">
+                    <ng-container *ngSwitchCase="'System.String'">
+                        <div *ngIf="!field.multilang; else elseForStringType" class="ui-fluid p-formgrid p-grid">
+                            <div class="p-field p-col">
+                                <label [for]="field.field[0].toLowerCase() + field.field.slice(1)">{{field.title}}</label>
+                                <input [id]="field.field[0].toLowerCase() + field.field.slice(1)" type="text" pInputText [formControlName]="field.field[0].toLowerCase() + field.field.slice(1)">
+
+
+                                <div class="inputInvalid" *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].invalid">
+                                    <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].errors.required">
+                                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                                    </div>
+                                    <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].errors.minlength">
+                                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                                    </div>
+                                    <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].errors.maxlength">
+                                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <ng-template #elseForStringType>
+                            <ng-container *ngFor="let lang of profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)]['controls']; let i = index">
+                                <div class="p-field p-col modal-langSelect">
+                                    <label [for]="field.field[0].toLowerCase() + field.field.slice(1) + '.' + lang.value"> {{field.title}} ({{lang.value.language.toUpperCase() }} ) </label>
+                                    <input [id]="field.field[0].toLowerCase() + field.field.slice(1) + '.' + lang.value" type="text" pInputText [formControl]="lang.controls['name']">
+                                    <!-- <div>{{field.field[0].toLowerCase() + field.field.slice(1) + '.'}} {{ lang.value | json}}</div>
+                                    <div>{{lang.controls['name'].invalid}}</div> -->
+                                    <div *ngIf="lang.controls['name'].invalid">
+                                        <div *ngIf="lang.controls['name'].errors.required">
+                                            {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                                        </div>
+                                        <div *ngIf="lang.controls['name'].errors.minLength">
+                                            {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                                        </div>
+                                        <div *ngIf="lang.controls['name'].errors.maxLength">
+                                            {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-container>
+                        </ng-template>
+                    </ng-container>
+
+
+
+                    <ng-container *ngSwitchCase="'System.Int32'">
+                        <div class="ui-fluid p-formgrid p-grid">
+                            <div class="p-field p-col">
+                                <label [for]="field.field[0].toLowerCase() + field.field.slice(1)"> {{field.title}} </label>
+                                <input [id]="field.field[0].toLowerCase() + field.field.slice(1)" type="number" pInputText [formControlName]="field.field[0].toLowerCase() + field.field.slice(1)">
+                                <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].invalid">
+                                    <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].errors.required">
+                                        {{getErrorByDateTypeAndErrortype('System.Int32', 'required')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+
+
+                    <!-- <ng-container *ngSwitchCase="'DateTime'">DateTime</ng-container> -->
+                    <ng-container *ngSwitchCase="'System.DateTime'">
+                        <div class="dateTimeInputForm">
+                            <label>{{field.title}}</label>
+                            <p-calendar panelStyle="formCal" [(ngModel)]="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].value" [formControlName]="field.field[0].toLowerCase() + field.field.slice(1)" dateFormat="dd.mm.yy" showTime="true" hourFormat="24"
+                                [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2100" [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()"></p-calendar>
+
+                            <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].invalid">
+                                <div *ngIf="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].errors.required">
+                                    {{getErrorByDateTypeAndErrortype('System.DateTime', 'required')}}
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'System.Boolean'">
+                        <label [for]="field.field[0].toLowerCase() + field.field.slice(1)" (click)="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].value = !profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].value" style="margin-right: 10px"> {{field.title}} </label>
+                        <p-checkbox [id]="field.field[0].toLowerCase() + field.field.slice(1)" [(ngModel)]="profileForm.controls[field.field[0].toLowerCase() + field.field.slice(1)].value" [formControlName]="field.field[0].toLowerCase() + field.field.slice(1)" binary="true"></p-checkbox>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <span>OtherType ({{field.type}})</span>
+                        <button type="button" pButton label="..." (click)="displayLinkedData(field.type)"></button>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!--            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button> -->
+            <button type="submit" pButton icon="pi pi-check" label="Сохранить" (click)="create()" [disabled]="profileForm.invalid"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #bottomSidebarDialog></ng-template>
+</p-sidebar>

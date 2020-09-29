@@ -77,9 +77,9 @@ export class DashboardComponent implements OnInit {
   }
 
   onDrop(event): void {
-    let target = event.target.closest('app-plitka');
-    if (!event.target.closest('app-plitka')) {
-      target = event.target.querySelectorAll('app-plitka')[0];
+    let target = event.target.closest('al-plitka');
+    if (!event.target.closest('al-plitka')) {
+      target = event.target.querySelectorAll('al-plitka')[0];
     }
     this.array_move(
       this.currentDraggableItem.id,

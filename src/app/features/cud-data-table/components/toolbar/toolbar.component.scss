@@ -1,0 +1,32 @@
+@import "src/assets/maintheme/_variables.scss";
+
+
+.toolbarButton {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $fontColor;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  border-color: transparent;
+  &:hover, &:focus {
+    //border-color: $primaryColor;
+    background-color: $lightnessGray;
+    .toolbarIcon{
+      color: $primaryDarkColor;
+    }
+  }
+  .toolbarIcon{
+    font-size: 1.285rem;
+  }
+  .toolbarName{
+    font-size: 0.857rem;
+    text-shadow: 0 1px 1px #ffffff;
+    margin: 3px 0;
+  }
+}

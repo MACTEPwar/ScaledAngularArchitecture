@@ -1,0 +1,118 @@
+<p-dialog [header]=" 'Forms.addToCatalog' | translate " [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '800px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+
+
+    <div [formGroup]="profileForm" *ngIf="isLoaded(); else notLoaded">
+        <!-- row -->
+        <div class="p-fluid p-grid">
+
+            <!-- ParentId -->
+            <div class="p-col">
+                <div class="p-inputgroup btngroupInput">
+                    <label for="ParentId">{{getFieldByName('ParentId').title}}<i class="sup">*</i></label>
+                    <input id="ParentId" type="text" pInputText [formControl]="profileForm.controls['ParentId']" #keyParent hidden>
+                    <span #displayParent></span>
+                    <button type="button" pButton label="..." (click)="displayLinkedData('Parent')"></button>
+                    <div class="inputInvalid" *ngIf="profileForm.controls['ParentId'].invalid && profileForm.controls['ParentId'].touched">
+                        <div *ngIf="profileForm.controls['ParentId'].errors.required">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field p-col">
+                <span class="p-float-label">
+            <label for="Type">{{getFieldByName('Type').title}}<i class="sup">*</i></label>
+            <p-dropdown [appendTo]="dialog"  id="Type" [options]="getConstantByName('Type')" placeholder="Не обрано" [formControl]="profileForm.controls['Type']" [style]="{'width':'100%'}"></p-dropdown>
+          </span>
+                <div class="inputInvalid" *ngIf="profileForm.controls['Type'].invalid && profileForm.controls['Type'].touched">
+                    <div *ngIf="profileForm.controls['Type'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col">
+                <label for="Code">{{getFieldByName('Code').title}}</label>
+                <input id="Code" type="text" pInputText formControlName="Code">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Code'].invalid && profileForm.controls['Code'].touched">
+                    <div *ngIf="profileForm.controls['Code'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Code'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field p-col">
+                <label for="Name">{{getFieldByName('Name').title}}<i class="sup">*</i></label>
+                <input id="Name" type="text" pInputText formControlName="Name">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Name'].invalid && profileForm.controls['Name'].touched">
+                    <div *ngIf="profileForm.controls['Name'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-4">
+                <label for="Latitude">{{getFieldByName('Latitude').title}}</label>
+                <input id="Latitude" type="text" pInputText formControlName="Latitude">
+            </div>
+
+            <div class="p-field p-col-4">
+                <label for="Longitude">{{getFieldByName('Longitude').title}}</label>
+                <input id="Longitude" type="text" pInputText formControlName="Longitude">
+            </div>
+
+            <div class="p-field p-col-4">
+                <label for="Elevation">{{getFieldByName('Elevation').title}}</label>
+                <input id="Elevation" type="text" pInputText formControlName="Elevation">
+            </div>
+
+        </div>
+        <!-- end row -->
+
+
+        <small> * - {{'Forms.reqField' | translate}} </small>
+    </div>
+
+    <ng-template #notLoaded>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col" style="text-align: center;">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+        </div>
+    </ng-template>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!--            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button> -->
+            <button type="button" pButton icon="pi pi-check" label="Сохранить" (click)="create()" [disabled]="profileForm.invalid"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #bottomSidebarDialog></ng-template>
+</p-sidebar>

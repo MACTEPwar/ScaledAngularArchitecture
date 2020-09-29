@@ -1,0 +1,9 @@
+<p-dialog header="Редактирование элемента" [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '500px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+    Hi from dialog update
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Сохранить" (click)="create()"></button>
+        </div>
+    </p-footer>
+</p-dialog>

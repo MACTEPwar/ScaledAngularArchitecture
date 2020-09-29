@@ -1,0 +1,82 @@
+<p-table class="mainTable catalogTable" #dt1 selectionMode="multiple" [columns]="table.columnTemplates" [scrollable]="true" [style]="{width:'100%'}" [value]="table.data" [lazy]="true" (onLazyLoad)="getDataLazy($event)" (onPage)="onPagingClick($event)"
+    [paginator]="true" [rows]="table.pageItemsPerPage" [totalRecords]="table.count" [loading]="table.loading" [resizableColumns]="true" [reorderableColumns]="true" [rowsPerPageOptions]="table.rowsPerPageOptions" [showCurrentPageReport]="true" [rowHover]="true"
+    currentPageReportTemplate="Показано с {first} по {last} из {totalRecords} записей" (onRowSelect)="onRowSelect(true)" (onRowUnselect)="onRowSelect(false)" [(selection)]="table.selection">
+    <!-- (onHeaderCheckboxToggle)="" -->
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns" style="width:250px;">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>
+                <p-dropdown [options]="[{label: 'Страница', value: 0}, {label: 'Cнять все выделения', value: 1}]">
+                    <ng-template let-item pTemplate="selectedItem">
+                        <p-checkbox binary="true" [(ngModel)]="table.selectRow" label="Выделение" disabled></p-checkbox>
+                    </ng-template>
+                    <ng-template let-item pTemplate="item">
+                        <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="item.label" *ngIf="item.value === 0"></p-checkbox>
+                        <span *ngIf="item.value === 1" (click)="unselectAll()">{{ item.label }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <!-- {{table.selection.length}} -->
+            </th>
+            <th *ngFor="let col of table.columnTemplates" pResizableColumn pReorderableColumn [pSortableColumn]="col.ModelName + '.' + col.FieldName">
+                {{col.DisplayName}}
+                <p-sortIcon [field]="col.ModelName + '.' + col.FieldName" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+        <tr [ngClass]="{hideFilter: !table.isShowFilter && !isChildren}" class="tableFiltered">
+            <td>{{table.isShowFilter}}</td>
+            <td *ngFor="let col of table.columnTemplates" class="ui-fluid " [ngSwitch]="col.Type">
+                <ng-container *ngIf="isFiltered(col.ModelName, col.FieldName); else notFiltered">
+                    <!-- {{col.Type}} -->
+                    <ng-container *ngSwitchCase="enumDataType.DATE_EQUAL">
+                        <div *ngIf="dt1.filters[col.ModelName + '.' + col.FieldName]; else noFilterDateEqual">
+                            <p-calendar (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" dateFormat="dd.mm.yy" [monthNavigator]="true"></p-calendar>
+                        </div>
+                        <ng-template #noFilterDateEqual>
+                            <p-calendar (onSelect)="onSelectFilterDate($event, col)" dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true"></p-calendar>
+                        </ng-template>
+                    </ng-container>
+                    <!-- <ng-container *ngSwitchCase="enumDataType.DATE_RANGE">
+
+                    </ng-container> -->
+                    <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                        <div *ngIf="dt1.filters[col.ModelName + '.' + col.FieldName]; else noFilterBool">
+                            <p-checkbox (onChange)="dt1.filter($event.checked, col.ModelName + '.' + col.FieldName, 'equal')" [(ngModel)]="dt1.filters[col.ModelName + '.' + col.FieldName].value" binary="true"></p-checkbox>
+                        </div>
+                        <ng-template #noFilterBool>
+                            <p-checkbox (onChange)="dt1.filter($event.checked, col.ModelName + '.' + col.FieldName, 'equal')" binary="true"></p-checkbox>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value,col.ModelName + '.' + col.FieldName, 'contains')" [value]="dt1.filters[col.ModelName + '.' + col.FieldName]?.value">
+                    </ng-container>
+                </ng-container>
+                <ng-template #notFiltered></ng-template>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <!-- <tr>
+            <td>s</td>
+            <td *ngFor="let col of columns">asd</td>
+        </tr> -->
+        <tr [pSelectableRow]="rowData">
+            <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.Type">
+                <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                    <p-checkbox [(ngModel)]="rowData[col.FieldName]" binary="true" [disabled]='true'></p-checkbox>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{rowData[col.FieldName] | dataFormat}}
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<ng-template #dialog></ng-template>

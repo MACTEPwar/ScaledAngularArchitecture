@@ -1,0 +1,13 @@
+
+
+  <div (click)="onClick($event)" *ngIf="toolbarItem" class="toolbarButton">
+
+    <div [ngSwitch]="toolbarItem.iconType" class="toolbarIcon">
+      <ng-container *ngSwitchCase="toolbarItem.iconType == eToolbarItem.fontawesome"><fa-icon [icon]="toolbarItem.icon"></fa-icon></ng-container>
+      <ng-container *ngSwitchCase="toolbarItem.iconType == eToolbarItem.prime"><i [class]="toolbarItem.icon"></i></ng-container>
+      <ng-container *ngSwitchCase="toolbarItem.iconType == eToolbarItem.href"><img [src]="toolbarItem.icon" alt=""></ng-container>
+    </div>
+
+    <div class="toolbarName">{{toolbarItem.name}}</div>
+
+  </div>

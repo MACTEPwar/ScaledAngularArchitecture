@@ -1,0 +1,290 @@
+<p-dialog [header]=" 'Forms.addToCatalog' | translate " [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '800px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+
+    <div [formGroup]="profileForm" *ngIf="isLoaded(); else notLoaded">
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- Code -->
+            <div class="p-field p-col">
+                <label for="Code">{{getFieldByName('Code').title}}<i class="sup">*</i></label>
+                <input id="Code" type="text" pInputText formControlName="Code">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Code'].invalid && profileForm.controls['Code'].touched">
+                    <div *ngIf="profileForm.controls['Code'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Code'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Code'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- FormOwnCodeChar -->
+            <div class="p-field p-col">
+                <label for="FormOwnCodeChar">{{getFieldByName('FormOwnCodeChar').title}}<i class="sup">*</i></label>
+                <input id="FormOwnCodeChar" type="text" pInputText formControlName="FormOwnCodeChar">
+                <div class="inputInvalid" *ngIf="profileForm.controls['FormOwnCodeChar'].invalid && profileForm.controls['FormOwnCodeChar'].touched">
+                    <div *ngIf="profileForm.controls['FormOwnCodeChar'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['FormOwnCodeChar'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['FormOwnCodeChar'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+
+        <!-- row -->
+        <div class="p-fluid p-grid">
+            <!--  Section-->
+            <div class="p-field p-col">
+                <span class="p-float-label">
+                  <label for="Section">{{getFieldByName('Section').title}}<i class="sup">*</i></label>
+                  <p-dropdown [appendTo]="dialog"  id="Section" [options]="getConstantByName('Section')" placeholder="Не обрано" [formControl]="profileForm.controls['Section']" [style]="{'width':'100%'}"></p-dropdown>
+                </span>
+                <div class="inputInvalid" *ngIf="profileForm.controls['Section'].invalid && profileForm.controls['Section'].touched">
+                    <div *ngIf="profileForm.controls['Section'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Type-->
+            <div class="p-field p-col">
+                <span class="p-float-label">
+                  <label for="Type">{{getFieldByName('Type').title}}<i class="sup">*</i></label>
+                  <p-dropdown [appendTo]="dialog"  id="Type" [options]="getConstantByName('Type')" placeholder="Не обрано" [formControl]="profileForm.controls['Type']" [style]="{'width':'100%'}"></p-dropdown>
+                </span>
+                <div class="inputInvalid" *ngIf="profileForm.controls['Type'].invalid && profileForm.controls['Type'].touched">
+                    <div *ngIf="profileForm.controls['Type'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- NameShort -->
+            <div class="p-field p-col">
+                <label for="NameShort">{{getFieldByName('NameShort').title}}<i class="sup">*</i></label>
+                <input id="NameShort" type="text" pInputText formControlName="NameShort">
+                <div class="inputInvalid" *ngIf="profileForm.controls['NameShort'].invalid && profileForm.controls['NameShort'].touched">
+                    <div *ngIf="profileForm.controls['NameShort'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['NameShort'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['NameShort'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- FormOwnCodeChar -->
+            <div class="p-field p-col">
+                <label for="NameFull">{{getFieldByName('NameFull').title}}<i class="sup">*</i></label>
+                <input id="NameFull" type="text" pInputText formControlName="NameFull">
+                <div class="inputInvalid" *ngIf="profileForm.controls['NameFull'].invalid && profileForm.controls['NameFull'].touched">
+                    <div *ngIf="profileForm.controls['NameFull'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['NameFull'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['NameFull'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <!-- Phone -->
+            <div class="p-field p-col-4">
+                <label for="Phone">{{getFieldByName('Phone').title}}</label>
+                <input id="Phone" type="text" pInputText formControlName="Phone">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Phone'].invalid && profileForm.controls['Phone'].touched">
+                    <div *ngIf="profileForm.controls['Phone'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Phone'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fax -->
+            <div class="p-field p-col-4">
+                <label for="Fax">{{getFieldByName('Fax').title}}</label>
+                <input id="Fax" type="text" pInputText formControlName="Fax">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Fax'].invalid && profileForm.controls['Fax'].touched">
+                    <div *ngIf="profileForm.controls['Fax'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Fax'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="p-field p-col-4">
+                <label for="Email">{{getFieldByName('Email').title}}</label>
+                <input id="Email" type="text" pInputText formControlName="Email">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Email'].invalid && profileForm.controls['Email'].touched">
+                    <div *ngIf="profileForm.controls['Email'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Email'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- LocationAddress -->
+            <div class="p-field p-col">
+                <label for="LocationAddress">{{getFieldByName('LocationAddress').title}}<i class="sup">*</i></label>
+                <input id="LocationAddress" type="text" pInputText formControlName="LocationAddress">
+                <div class="inputInvalid" *ngIf="profileForm.controls['LocationAddress'].invalid && profileForm.controls['LocationAddress'].touched">
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <!-- row  -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- TaxCertDate-->
+            <div class="p-field p-col">
+                <label>{{getFieldByName('TaxCertDate').title}}<i class="sup">*</i></label>
+                <p-calendar [appendTo]="dialog" [formControl]="profileForm.controls['TaxCertDate']" [(ngModel)]="profileForm.controls['TaxCertDate'].value" dateFormat="dd.mm.yy" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="'1990:' + thisYear.toString()"
+                    [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()">
+                </p-calendar>
+                <div *ngIf="profileForm.controls['TaxCertDate'].invalid && profileForm.controls['TaxCertDate'].touched">
+                    <div *ngIf="profileForm.controls['TaxCertDate'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.DateTime', 'required')}}
+                    </div>
+                </div>
+            </div>
+            <!-- Info-->
+            <div class="p-field p-col">
+                <label for="Info">{{getFieldByName('Info').title}}</label>
+                <input id="Info" type="text" pInputText formControlName="Info">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Info'].invalid && profileForm.controls['Info'].touched">
+                    <div *ngIf="profileForm.controls['Info'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Info'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row-->
+
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <!-- LocationAddress -->
+            <div class="p-field p-col">
+                <div class="checkBoxLineStart">
+                    <p-checkbox id="TaxIsPay" label="{{getFieldByName('TaxIsPay').title}}" [(ngModel)]="profileForm.controls['TaxIsPay'].value" [formControl]="profileForm.controls['TaxIsPay']" binary="true">
+                    </p-checkbox>
+                </div>
+            </div>
+
+            <ng-container *ngIf="profileForm.controls['TaxIsPay'].value == true">
+
+                <!-- TaxNumber -->
+                <div class="p-field p-col-4">
+                    <label for="TaxNumber">{{getFieldByName('TaxNumber').title}}</label>
+                    <input id="TaxNumber" type="text" pInputText formControlName="TaxNumber">
+                    <div class="inputInvalid" *ngIf="profileForm.controls['TaxNumber'].invalid && profileForm.controls['TaxNumber'].touched">
+                        <div *ngIf="profileForm.controls['TaxNumber'].errors.minlength">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                        </div>
+                        <div *ngIf="profileForm.controls['TaxNumber'].errors.maxlength">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TaxCertNumber -->
+                <div class="p-field p-col-4">
+                    <label for="TaxCertNumber">{{getFieldByName('TaxCertNumber').title}}</label>
+                    <input id="TaxCertNumber" type="text" pInputText formControlName="TaxCertNumber">
+                    <div class="inputInvalid" *ngIf="profileForm.controls['TaxCertNumber'].invalid && profileForm.controls['TaxCertNumber'].touched">
+                        <div *ngIf="profileForm.controls['TaxCertNumber'].errors.minlength">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                        </div>
+                        <div *ngIf="profileForm.controls['TaxCertNumber'].errors.maxlength">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+
+        </div>
+        <!-- end row-->
+
+
+        <small> * - {{'Forms.reqField' | translate}} </small>
+    </div>
+
+    <ng-template #notLoaded>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col" style="text-align: center;">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+        </div>
+    </ng-template>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!--            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button> -->
+            <button type="button" pButton icon="pi pi-check" label="Сохранить" (click)="create()" [disabled]="profileForm.invalid"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #bottomSidebarDialog></ng-template>
+</p-sidebar>

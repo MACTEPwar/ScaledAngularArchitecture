@@ -1,0 +1,78 @@
+<div class="table_toolbar" [ngClass]="{hideFilter: isChildren}">
+    <al-toolbar [name]="'Обновить'" [icon]="'fal sync'" (call)="getDataLazy()">
+        </app-toolbar>
+        <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()" [disabled]="(table.selection.length > 1 || table.selection.length < 1)">
+            </app-toolbar>
+            <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
+                </app-toolbar>
+                <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
+                    </app-toolbar>
+
+                    <ng-template *ngIf="table && table.allSerachFields && table.allSerachFields.length > 0">
+                        > 0
+                    </ng-template>
+
+                    <p-dropdown [options]="table.allSerachFields" optionLabel="DisplayName" [(ngModel)]="table.currentSerachField"></p-dropdown>
+                    <p-autoComplete [(ngModel)]="text" [suggestions]="results" [forceSelection]="true" (completeMethod)="search($event)" field="label" emptyMessage="Результатов не найдено" [style]="{width:'100%', position: 'absolute'}" (onSelect)="selectSearchItem($event);"
+                        (onFocus)="focusSearchInput($event)" (onBlur)="blueSearchInput($event)">
+                        <ng-template let-item pTemplate="item">
+                            <!-- {{item | json}} -->
+                            <p-breadcrumb [model]="item" [style]="{width:'100%'}"></p-breadcrumb>
+                        </ng-template>
+                    </p-autoComplete>
+</div>
+
+<p-treeTable class="mainTable catalogTable" selectionMode="multiple" selectionMode="multiple" currentPageReportTemplate="Показано с {first} по {last} из {totalRecords} записей" [value]="table.data" [columns]="table.selectedColumns" [resizableColumns]="true"
+    [scrollable]="true" [loading]="table.loading" [lazy]="true" [style]="{width:'100%'}" [lazyLoadOnInit]="false" [reorderableColumns]="true" [paginator]="true" [rows]="table.pageItemsPerPage" [totalRecords]="table.count" [rowsPerPageOptions]="table.rowsPerPageOptions"
+    [showCurrentPageReport]="true" [(filters)]="table.filter" [(selection)]="table.selection" (onLazyLoad)="getDataLazy($event)" (onNodeExpand)="onNodeExpand($event)" #tt1>
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col style="width:50px">
+            <col *ngFor="let col of columns" style="width:200px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr style="height: 57px">
+            <th (click)="toggleModalChangeColumns(true);" style="height: 57px">
+                <span style="cursor: pointer">
+                    <fa-icon [icon]="'list' | faIcon:fas"></fa-icon>
+                </span>
+            </th>
+            <th *ngFor="let col of table.selectedColumns; let i = index;" ttReorderableColumn ttResizableColumn [ttSortableColumn]="col.ModelName + '.' + col.FieldName">
+                {{col.DisplayName}}
+                <p-treeTableSortIcon [field]="col.ModelName + '.' + col.FieldName"></p-treeTableSortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr style="height: 57px" [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <td></td>
+            <td *ngFor="let col of table.selectedColumns; let i = index" [ngSwitch]="col.Type">
+                <!-- {{rowData[col.FieldName] | json}} -->
+                <p-treeTableToggler *ngIf="i == 0 && rowData.childCount > 0" [rowNode]="rowNode"></p-treeTableToggler>
+                <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                    <p-checkbox [(ngModel)]="rowData[col.FieldName]" binary="true" [disabled]='true'></p-checkbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="enumDataType.CONSTANT">
+                    {{getConstantLabelByTypeAndValue(col.BackEndType, rowData[col.FieldName])}}
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{rowData | dataFormat:col:translateService.currentLang:table.constants}}
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+
+<p-dialog header="Отображение колонок" [(visible)]="table.displayChangeCoumns" showEffect="fade" [modal]="true" [dismissableMask]="true" [focusOnShow]="false" [responsive]="true" (visibleChange)="toggleModalChangeColumns(false)">
+    <div class="p-grid" style="width:250px;margin-bottom:10px">
+        <div class="p-col-12" *ngFor="let column of table.columnTemplates">
+            <p-checkbox name="group1" [value]="column" value="column" [label]="column.DisplayName" [(ngModel)]="tempSelectedColumns" [inputId]="column.FieldName"></p-checkbox>
+        </div>
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Принять" (click)="changeSelectedColumns()"></button>
+    </p-footer>
+</p-dialog>
+
+<ng-template #dialog></ng-template>

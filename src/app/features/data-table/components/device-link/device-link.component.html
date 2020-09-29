@@ -1,0 +1,34 @@
+<p-table class="mainTable catalogTable" #dt1 selectionMode="multiple" [columns]="table.columnTemplates" [scrollable]="true" [style]="{width:'100%'}" [value]="table.data" [lazy]="true" (onLazyLoad)="getDataLazy($event)" [paginator]="true" [rows]="table.pageItemsPerPage"
+    [totalRecords]="table.count" [loading]="table.loading" [resizableColumns]="true" [reorderableColumns]="true" [rowsPerPageOptions]="table.rowsPerPageOptions" [showCurrentPageReport]="true" [rowHover]="true" currentPageReportTemplate="Показано с {first} по {last} из {totalRecords} записей">
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns" style="width:200px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of table.columnTemplates" pResizableColumn pReorderableColumn [pSortableColumn]="col.ModelName + '.' + col.FieldName">
+                {{col.DisplayName}}
+                <p-sortIcon [field]="col.ModelName + '.' + col.FieldName" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns" [ngSwitch]="col.Type">
+                <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                    <p-checkbox [(ngModel)]="rowData[col.FieldName]" binary="true" [disabled]='true'></p-checkbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="enumDataType.CONSTANT">
+                    {{getConstantLabelByTypeAndValue(col.BackEndType, rowData[col.FieldName])}}
+                </ng-container>
+                <ng-container *ngSwitchCase="enumDataType.LIST_OF_OBJECTS">
+                    <button (click)="showLinkedList(rowData)">посмотреть</button>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{rowData | dataFormat:col:translateService.currentLang:table.constants}}
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

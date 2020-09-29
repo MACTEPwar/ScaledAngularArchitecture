@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { ITab } from '@features/tab/types/interface/i-tab';
 import { ITabService } from '@features/tab/service/intefaces/i-tab.service';
 // import { TopTab } from '../../../shared/top-tab/models/top-tab';
-// import { TopTabService } from '../../../shared/top-tab/top-tab.service';
+// import { tabService } from '../../../shared/top-tab/top-tab.service';
 import { MainMenuService } from '@core/main-menu/services/concrete/main-menu.service';
 import { IMainMenu } from '@core/main-menu/types/interfaces/i-main-menu';
 import { BehaviorSubject } from 'rxjs';
@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // private loadTabs(): void {
-  //   this.topTabs = this.toptabService.getTabs();
+  //   this.topTabs = this.tabService.getTabs();
   // }
 
   closeTab(event: Event, index: number): void {

@@ -1,0 +1,213 @@
+<p-dialog [header]=" 'Forms.addToCatalog' | translate " [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '800px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+
+
+    <div [formGroup]="profileForm" *ngIf="isLoaded(); else notLoaded">
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- Code -->
+            <div class="p-field p-col">
+                <label for="Code">{{getFieldByName('Code').title}}<i class="sup">*</i></label>
+                <input id="Code" type="text" pInputText formControlName="Code">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Code'].invalid && profileForm.controls['Code'].touched">
+                    <div *ngIf="profileForm.controls['Code'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Code'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Code'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Surname -->
+            <div class="p-field p-col">
+                <label for="Surname">{{getFieldByName('Surname').title}}<i class="sup">*</i></label>
+                <input id="Surname" type="text" pInputText formControlName="Surname">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Surname'].invalid && profileForm.controls['Surname'].touched">
+                    <div *ngIf="profileForm.controls['Surname'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Surname'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Surname'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- Name -->
+            <div class="p-field p-col">
+                <label for="Name">{{getFieldByName('Name').title}}<i class="sup">*</i></label>
+                <input id="Name" type="text" pInputText formControlName="Name">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Code'].invalid && profileForm.controls['Name'].touched">
+                    <div *ngIf="profileForm.controls['Name'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patronymic -->
+            <div class="p-field p-col">
+                <label for="Patronymic">{{getFieldByName('Patronymic').title}}<i class="sup">*</i></label>
+                <input id="Patronymic" type="text" pInputText formControlName="Patronymic">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Patronymic'].invalid && profileForm.controls['Patronymic'].touched">
+                    <div *ngIf="profileForm.controls['Patronymic'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Patronymic'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Patronymic'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- Sex -->
+            <div class="p-field p-col-4">
+                <span class="p-float-label">
+                    <label for="Sex">{{getFieldByName('Sex').title}}<i class="sup">*</i></label>
+                    <p-dropdown [appendTo]="dialog"  id="Sex" [options]="getConstantByName('Sex')"
+                                placeholder="Не обрано" [formControl]="profileForm.controls['Sex']" [style]="{'width':'100%'}"></p-dropdown>
+                </span>
+                <div class="inputInvalid" *ngIf="profileForm.controls['Sex'].invalid && profileForm.controls['Sex'].touched ">
+                    <div *ngIf="profileForm.controls['Sex'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birthday -->
+            <div class="p-field p-col-4">
+                <label>{{getFieldByName('Birthday').title}}<i class="sup">*</i></label>
+                <p-calendar [appendTo]="dialog" [formControl]="profileForm.controls['Birthday']" [(ngModel)]="profileForm.controls['Birthday'].value" dateFormat="dd.mm.yy" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="'1920:' + thisYear.toString()"
+                    [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()">
+                </p-calendar>
+                <div *ngIf="profileForm.controls['Birthday'].invalid && profileForm.controls['Birthday'].touched">
+                    <div *ngIf="profileForm.controls['Birthday'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.DateTime', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="p-field p-col-4">
+                <label for="Phone">{{getFieldByName('Phone').title}}<i class="sup">*</i></label>
+                <input id="Phone" type="text" pInputText formControlName="Phone">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Phone'].invalid && profileForm.controls['Phone'].touched">
+                    <div *ngIf="profileForm.controls['Phone'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Phone'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Phone'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- Email -->
+            <div class="p-field p-col">
+                <label for="Email">{{getFieldByName('Email').title}}<i class="sup">*</i></label>
+                <input id="Email" type="text" pInputText formControlName="Email">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Email'].invalid && profileForm.controls['Email'].touched">
+                    <div *ngIf="profileForm.controls['Email'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Email'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Email'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- LocationId -->
+            <div class="p-field p-col">
+                <label for="LocationId">{{getFieldByName('LocationId').title}}<i class="sup">*</i></label>
+                <input id="LocationId" type="number" pInputText formControlName="LocationId">
+                <div class="inputInvalid" *ngIf="profileForm.controls['LocationId'].invalid && profileForm.controls['LocationId'].touched">
+                    <div *ngIf="profileForm.controls['LocationId'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.Int32', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+            <!-- LocationAddress -->
+            <div class="p-field p-col">
+                <label for="LocationAddress">{{getFieldByName('LocationAddress').title}}<i class="sup">*</i></label>
+                <input id="LocationAddress" type="text" pInputText formControlName="LocationAddress">
+                <div class="inputInvalid" *ngIf="profileForm.controls['LocationAddress'].invalid && profileForm.controls['LocationAddress'].touched">
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['LocationAddress'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+
+        <small> * - {{'Forms.reqField' | translate}} </small>
+    </div>
+
+    <ng-template #notLoaded>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col" style="text-align: center;">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+        </div>
+    </ng-template>
+
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!--            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button> -->
+            <button type="button" pButton icon="pi pi-check" label="Сохранить" (click)="create()" [disabled]="profileForm.invalid"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #bottomSidebarDialog></ng-template>
+</p-sidebar>

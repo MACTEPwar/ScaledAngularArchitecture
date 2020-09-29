@@ -1,0 +1,167 @@
+<div class="table_toolbar" [ngClass]="{hideFilter: isChildren}">
+    <al-toolbar [name]="'Обновить'" [icon]="'fal sync'" (call)="refreshTable()">
+        </app-toolbar>
+        <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()">
+            </app-toolbar>
+            <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
+                </app-toolbar>
+                <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
+                    </app-toolbar>
+                    <al-toolbar name="Фильтр" [icon]="'fal filter'" (call)="toggleFilterToolbar()">
+                        </app-toolbar>
+
+                        <span class="p-overlay-badge">
+        <al-toolbar name="Выборка" [icon]="'fal ballot-check'" (call)="op.toggle($event)"></app-toolbar>
+        <span *ngIf="table.selection.length > 0" class="toolbar-badge">{{table.selection.length}}</span>
+                        </span>
+
+
+                        <p-overlayPanel #op>
+                            <ng-template pTemplate>
+                                <!-- <p-col> -->
+                                <ul class="popover">
+                                    <li>
+                                        <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="'Все на странице'"></p-checkbox>
+                                    </li>
+                                    <li><span (click)="unselectAll()">Cнять все выделения</span></li>
+                                </ul>
+                                <!-- </p-col> -->
+                            </ng-template>
+                        </p-overlayPanel>
+
+                        <!-- <p-dropdown [options]="[{label: 'Страница', value: 0}, {label: 'Cнять все выделения', value: 1}]">
+        <ng-template let-item pTemplate="selectedItem">
+            <p-checkbox binary="true" [(ngModel)]="table.selectRow" [disabled]="true"></p-checkbox>
+            <al-toolbar name="выдиление" [icon]="'fal filter'"></app-toolbar>
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+            <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="item.label" *ngIf="item.value === 0"></p-checkbox>
+            <span *ngIf="item.value === 1" (click)="unselectAll()">{{ item.label }}</span>
+        </ng-template>
+    </p-dropdown> -->
+</div>
+<p-table class="mainTable catalogTable" #dt1 selectionMode="multiple" [columns]="table.selectedColumns" [scrollable]="true" [style]="{width:'100%'}" [value]="table.data" [lazy]="true" (onLazyLoad)="getDataLazy($event)" (onPage)="onPagingClick($event)"
+    [paginator]="true" [rows]="table.pageItemsPerPage" [totalRecords]="table.count" [loading]="table.loading" [resizableColumns]="true" [reorderableColumns]="true" stateStorage="session" [stateKey]="table.sessionKey" [rowsPerPageOptions]="table.rowsPerPageOptions"
+    [showCurrentPageReport]="true" [rowHover]="true" currentPageReportTemplate="Показано с {first} по {last} из {totalRecords} записей" (onRowSelect)="onRowSelect(true)" (onRowUnselect)="onRowSelect(false)" [(selection)]="table.selection">
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col style="width:100px">
+            <col *ngFor="let col of columns" style="width:200px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th (click)="toggleModalChangeColumns(true);">
+                <span style="cursor: pointer">
+                    <fa-icon [icon]="stirng2faIcon('fas list')"></fa-icon>
+                </span>
+            </th>
+            <th *ngFor="let col of table.selectedColumns" pResizableColumn pReorderableColumn [pSortableColumn]="col.ModelName + '.' + col.FieldName">
+                {{col.DisplayName}}
+                <p-sortIcon [field]="col.ModelName + '.' + col.FieldName" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+        <tr [ngClass]="{hideFilter: !table.isShowFilter && !isChildren}" class="tableFiltered">
+            <td></td>
+            <td *ngFor="let col of table.selectedColumns" class="ui-fluid " [ngSwitch]="col.Type">
+                <ng-container *ngIf="isFiltered(col.ModelName, col.FieldName); else notFiltered">
+                    <!-- {{col.Type}} -->
+                    <ng-container *ngSwitchCase="enumDataType.DATE_EQUAL">
+                        <div *ngIf="dt1.filters[col.ModelName + '.' + col.FieldName]; else noFilterDateEqual">
+                            <!-- <div class="ui-fluid p-formgrid p-grid">
+                                <div class="p-field p-col">
+                                    <p-calendar (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" dateFormat="dd.mm.yy" [monthNavigator]="true" [locale]="loadDatePickerSettingWithLocale()" showButtonBar="true"></p-calendar>
+                                </div>
+                            </div> -->
+                            <p-calendar (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" dateFormat="dd.mm.yy" [monthNavigator]="true" [locale]="loadDatePickerSettingWithLocale()"></p-calendar>
+                        </div>
+                        <ng-template #noFilterDateEqual>
+                            <!-- <div class="ui-fluid p-formgrid p-grid">
+                                <div class="p-field p-col">
+                                    <p-calendar (onSelect)="onSelectFilterDate($event, col)" dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true" [locale]="loadDatePickerSettingWithLocale()" showButtonBar="true"></p-calendar>
+                                </div>
+                            </div> -->
+                            <p-calendar (onSelect)="onSelectFilterDate($event, col)" dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true" [locale]="loadDatePickerSettingWithLocale()"></p-calendar>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="enumDataType.DATE_TIME_EQUAL">
+                        <!-- <p-calendar inputStyleClass="test1" (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" [appendTo]="dt1"  dateFormat="dd.mm.yy" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                            [yearRange]="'1990:' + (new Date().getFullYear() + 50)" [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()">
+                        </p-calendar> -->
+                        <div *ngIf="dt1.filters[col.ModelName + '.' + col.FieldName]; else noFilterDateEqual">
+                            <!-- <p-calendar (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" dateFormat="dd.mm.yy" [monthNavigator]="true" [locale]="loadDatePickerSettingWithLocale()"></p-calendar> -->
+                            <p-calendar inputStyleClass="test1" (onClearClick)="onSelectFilterDate($event, col)" (onSelect)="onSelectFilterDate($event, col)" [ngModel]="dt1.filters[col.ModelName + '.' + col.FieldName].value | parseDate" [appendTo]="dt1" dateFormat="dd.mm.yy" [showIcon]="true"
+                                [monthNavigator]="true" [yearNavigator]="true" [yearRange]="'1990:' + getCurrentYear()" [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()" [showButtonBar]="true">
+                            </p-calendar>
+                        </div>
+                        <ng-template #noFilterDateEqual>
+                            <!-- <p-calendar (onSelect)="onSelectFilterDate($event, col)" dateFormat="dd.mm.yy" [monthNavigator]="true" [yearNavigator]="true" [locale]="loadDatePickerSettingWithLocale()"></p-calendar> -->
+                            <p-calendar inputStyleClass="test1" (onClearClick)="onSelectFilterDate($event, col)" (onSelect)="onSelectFilterDate($event, col)" [appendTo]="dt1" dateFormat="dd.mm.yy" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="'1990:' + getCurrentYear()"
+                                [dataType]="'date'" [locale]="loadDatePickerSettingWithLocale()" [showButtonBar]="true">
+                            </p-calendar>
+                        </ng-template>
+                    </ng-container>
+                    <!-- <ng-container *ngSwitchCase="enumDataType.DATE_RANGE">
+
+                    </ng-container> -->
+                    <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                        <div *ngIf="dt1.filters[col.ModelName + '.' + col.FieldName]; else noFilterBool">
+                            <p-checkbox (onChange)="dt1.filter($event.checked, col.ModelName + '.' + col.FieldName, 'equal')" [(ngModel)]="dt1.filters[col.ModelName + '.' + col.FieldName].value" binary="true"></p-checkbox>
+                        </div>
+                        <ng-template #noFilterBool>
+                            <p-checkbox (onChange)="dt1.filter($event.checked, col.ModelName + '.' + col.FieldName, 'equal')" binary="true"></p-checkbox>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value,col.ModelName + '.' + col.FieldName, 'contains')" [value]="dt1.filters[col.ModelName + '.' + col.FieldName]?.value">
+                    </ng-container>
+                </ng-container>
+                <ng-template #notFiltered></ng-template>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <!-- <tr>
+            <td>s</td>
+            <td *ngFor="let col of columns">asd</td>
+        </tr> -->
+        <tr [pSelectableRow]="rowData">
+            <td></td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.Type">
+                <ng-container *ngSwitchCase="enumDataType.CHECKED">
+                    <p-checkbox [(ngModel)]="rowData[col.FieldName]" binary="true" [disabled]='true'></p-checkbox>
+                </ng-container>
+                <ng-container *ngSwitchCase="enumDataType.CONSTANT">
+                    {{getConstantLabelByTypeAndValue(col.BackEndType, rowData[col.FieldName])}}
+                </ng-container>
+                <ng-container *ngSwitchCase="enumDataType.LIST_OF_OBJECTS">
+                    <ng-templdatae *ngIf="showLinkedData">
+                        <button (click)="showLinkedList(rowData)">посмотреть</button>
+                    </ng-templdatae>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    <!-- {{rowData[col.FieldName] | dataFormat:col}} -->
+                    {{rowData | dataFormat:col:translateService.currentLang:table.constants}}
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<ng-template #dialog></ng-template>
+
+<p-sidebar [(visible)]="sidebarLinkedDataListDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #linkedDataList></ng-template>
+</p-sidebar>
+
+<p-dialog header="Отображение колонок" [(visible)]="table.displayChangeCoumns" showEffect="fade" [modal]="true" [dismissableMask]="true" [focusOnShow]="false" [responsive]="true" (visibleChange)="toggleModalChangeColumns(false)">
+    <div class="p-grid" style="width:250px;margin-bottom:10px">
+        <div class="p-col-12" *ngFor="let column of table.columnTemplates">
+            <p-checkbox name="group1" [value]="column" value="column" [label]="column.DisplayName" [(ngModel)]="tempSelectedClumns" [inputId]="column.FieldName"></p-checkbox>
+        </div>
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Принять" (click)="changeSelectedColumns()"></button>
+    </p-footer>
+</p-dialog>

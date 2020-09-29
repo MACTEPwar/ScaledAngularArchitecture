@@ -1,0 +1,9 @@
+<p-dialog header="Удаление элементов" [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '600px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+    <p>Вы подтверждаете удаление элементов?</p>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" label="Отменить" (click)="close()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Подтвердить" (click)="delete()"></button>
+        </div>
+    </p-footer>
+</p-dialog>

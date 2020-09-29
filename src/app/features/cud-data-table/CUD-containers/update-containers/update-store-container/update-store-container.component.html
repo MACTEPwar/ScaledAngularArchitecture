@@ -1,0 +1,134 @@
+<p-dialog [header]=" 'Forms.addToCatalog' | translate " [visible]="true" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '800px'}" (visibleChange)="close()" [dismissableMask]="true" #dialog>
+    <div [formGroup]="profileForm" *ngIf="isLoaded(); else notLoaded">
+
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col">
+                <label for="Number">{{getFieldByName('Number').title}}<i class="sup">*</i></label>
+                <input id="Number" type="text" pInputText formControlName="Number">
+
+                <div class="inputInvalid" *ngIf="profileForm.controls['Number'].invalid && profileForm.controls['Number'].touched">
+                    <div *ngIf="profileForm.controls['Number'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Number'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Number'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field p-col">
+                <label for="Name">{{getFieldByName('Name').title}}<i class="sup">*</i></label>
+                <input id="Name" type="text" pInputText formControlName="Name">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Name'].invalid && profileForm.controls['Name'].touched">
+                    <div *ngIf="profileForm.controls['Name'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Name'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+        <!-- row -->
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col">
+                <label for="Info">{{getFieldByName('Info').title}}</label>
+                <input id="Info" type="text" pInputText formControlName="Info">
+                <div class="inputInvalid" *ngIf="profileForm.controls['Info'].invalid && profileForm.controls['Info'].touched">
+                    <div *ngIf="profileForm.controls['Info'].errors.minlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'minLength')}}
+                    </div>
+                    <div *ngIf="profileForm.controls['Info'].errors.maxlength">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'maxLength')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+        <!-- row -->
+
+        <div class="p-fluid p-grid">
+            <div class="p-col">
+                <div class="p-inputgroup btngroupInput">
+                    <label for="FirmCode">{{getFieldByName('Firm').title}}<i class="sup">*</i></label>
+                    <input id="FirmCode" type="text" pInputText [formControl]="profileForm.controls['FirmCode']" #keyFirm hidden>
+
+                    <span #displayFirm></span>
+                    <button type="button" pButton label="..." (click)="displayLinkedData('Firm')"></button>
+                    <div class="inputInvalid" *ngIf="profileForm.controls['FirmCode'].invalid && profileForm.controls['FirmCode'].touched">
+                        <div *ngIf="profileForm.controls['FirmCode'].errors.required">
+                            {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-col">
+                <div class="p-inputgroup btngroupInput">
+                    <label for="StructureId">{{getFieldByName('Structure').title}}<i class="sup">*</i></label>
+                    <input id="StructureId" type="number" pInputText formControlName="StructureId" hidden #keyStructure>
+                    <span #displayStructure></span>
+                    <button type="button" pButton label="..." (click)="displayLinkedData('Structure')"></button>
+                </div>
+                <div class="inputInvalid" *ngIf="profileForm.controls['StructureId'].invalid && profileForm.controls['StructureId'].touched">
+                    <div *ngIf="profileForm.controls['StructureId'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+
+        <!-- row -->
+
+        <div class="p-fluid p-grid">
+
+            <div class="p-field p-col">
+                <span class="p-float-label">
+                    <label for="Type">{{getFieldByName('Type').title}}<i class="sup">*</i></label>
+                    <p-dropdown [appendTo]="dialog"  id="Type" [options]="getConstantByName('Type')" placeholder="Не обрано" [formControl]="profileForm.controls['Type']" [style]="{'width':'100%'}"></p-dropdown>
+                </span>
+                <div class="inputInvalid" *ngIf="profileForm.controls['Type'].invalid && profileForm.controls['Type'].touched">
+                    <div *ngIf="profileForm.controls['Type'].errors.required">
+                        {{getErrorByDateTypeAndErrortype('System.String', 'required')}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end row -->
+        <small> * - {{'Forms.reqField' | translate}} </small>
+    </div>
+
+    <ng-template #notLoaded>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col" style="text-align: center;">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+        </div>
+    </ng-template>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <!--            <button type="button" pButton icon="pi pi-times" label="Назад" (click)="close()"></button> -->
+            <button type="button" pButton icon="pi pi-check" label="Сохранить" (click)="update()" [disabled]="profileForm.invalid"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
+    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <ng-template #bottomSidebarDialog></ng-template>
+</p-sidebar>
