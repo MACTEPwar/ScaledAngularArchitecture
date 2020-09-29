@@ -5,8 +5,15 @@ import { ITab } from '../../types/interface/i-tab';
 @Injectable()
 export class TabService implements ITabService {
 
+  /**
+   * Список табов
+   */
   tabList: Array<ITab>;
-  keys: Array<string>;
+
+  /**
+   * Список ключевых полей
+   */
+  private keys: Array<string>;
 
   constructor(
     @Inject('uniq') @Optional() public uniq?: Array<string>
@@ -27,6 +34,11 @@ export class TabService implements ITabService {
     return true;
   }
 
+  /**
+   * Удаляет таб по индексу или табу (ключу)
+   * @param value значение
+   * @returns true если удали
+   */
   dropTab(value: ITab | number): boolean {
     let index = 0;
     const oldValue = this.tabList;
@@ -37,23 +49,26 @@ export class TabService implements ITabService {
       // if ITab
       const tab = value as ITab;
       const finder = (element: ITab, ind: number, array: Array<ITab>): boolean => {
-        // TODO: реализовать если нужно несколько ключей
+        // TODO: реализовать, если нужно, несколько ключей
         const finderValue: string = (value as ITab).url;
         if (element.url === finderValue) {
           return true;
         }
       };
-
       index = oldValue.findIndex(finder);
-      // index = oldValue.findIndex((n: ITab) => tab.url === n.url);
     }
     this.tabList = oldValue.splice(index, 1);
     return true;
   }
 
+  /**
+   * Ищет таб
+   * @param tab Таб
+   * @returns Таб
+   */
   findTab(tab: ITab): ITab {
     const finder = (element: ITab, ind: number, array: Array<ITab>): boolean => {
-      // TODO: реализовать если нужно несколько ключей
+      // TODO: реализовать, если нужно, несколько ключей
       const finderValue: string = tab.url;
       if (element.url === finderValue) {
         return true;
@@ -62,13 +77,19 @@ export class TabService implements ITabService {
     return this.tabList.find(finder);
   }
 
+  /**
+   * Делает таб активным
+   * @param tab Таб
+   */
   activateTab(tab: ITab): void {
     this.tabList.forEach((element) => {
       element.active = element.url === tab.url;
     });
-
   }
 
+  /**
+   * Делает НЕ активными все табы
+   */
   disactivateAllTabs(): void {
     this.tabList.forEach((element) => {
       element.active = false;
