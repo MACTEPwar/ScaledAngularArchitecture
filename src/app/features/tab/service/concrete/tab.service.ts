@@ -63,13 +63,13 @@ export class TabService implements ITabService {
 
   /**
    * Ищет таб
-   * @param tab Таб
+   * @param url ключ
    * @returns Таб
    */
-  findTab(tab: ITab): ITab {
+  findTab(url: string): ITab {
     const finder = (element: ITab, ind: number, array: Array<ITab>): boolean => {
       // TODO: реализовать, если нужно, несколько ключей
-      const finderValue: string = tab.url;
+      const finderValue: string = url;
       if (element.url === finderValue) {
         return true;
       }

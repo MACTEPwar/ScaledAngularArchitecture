@@ -1,22 +1,22 @@
-<!-- <div class="dashcardTitle">
+<div class="dashcardTitle">
     {{item.name}}
 </div>
 
 <ul class="dashMenuList">
-    <ng-container *ngFor="let i of getRowCount() | range; let rowIndex = index">
+    <ng-container *ngFor="let i of createRange(getRowCount()); let rowIndex = index">
         <ng-container *ngFor="let j of createRange(itemsPreRow);">
-            <li class="dashItemBox"
-                [ngClass]="{active: incomingSelect && incomingSelect.id === item.children[ind(i,j)].id}"
-                *ngIf="item.children[ind(i,j)]" (click)="onFirstParentClick(i,j,rowIndex)">
+
+            <li class="dashItemBox" [ngClass]="{active: incomingSelect && incomingSelect.id === item.children[ind(i,j)].id}" *ngIf="item.children[ind(i,j)]" (click)="onFirstParentClick(i,j,rowIndex)">
                 <div *ngIf="ind(i,j) < item.children.length" class="dashItemBoxTitle">
-                    <img *ngIf="item.children[ind(i,j)].image != ''" src="{{item.children[ind(i,j)].image}}">
-                    {{item.children[ind(i,j)].name}}
+                    <img *ngIf="item.children[ind(i,j)].image != ''" src="{{item.children[ind(i,j)].image}}"> {{item.children[ind(i,j)].name}}
                 </div>
             </li>
+
         </ng-container>
 
-        <div class="dashChildContainer"
-            [ngClass]="{hide: rowIndex !== rowIndexDisplayedChildren || !childs || childs.length === 0}">
+        <!-- Контейнер для детей  -->
+        <div class="dashChildContainer" [ngClass]="{hide: rowIndex !== rowIndexDisplayedChildren || !childs || childs.length === 0}">
+
             <p-tree [value]="childs" selectionMode="single" (onNodeSelect)="onNodeSelect($event)">
                 <ng-template let-node pTemplate="picture">
                     <div class="dashChildItem">
@@ -28,38 +28,5 @@
 
         </div>
     </ng-container>
-</ul> -->
 
-<div class="dashcardTitle" >
-    {{item.name}}
-  </div>
-
-  <ul class="dashMenuList">
-      <ng-container *ngFor="let i of createRange(getRowCount()); let rowIndex = index" >
-        <ng-container *ngFor="let j of createRange(itemsPreRow);" >
-
-          <li class="dashItemBox" [ngClass]="{active: incomingSelect && incomingSelect.id === item.children[ind(i,j)].id}" *ngIf="item.children[ind(i,j)]" (click)="onFirstParentClick(i,j,rowIndex)">
-            <div *ngIf="ind(i,j) < item.children.length" class="dashItemBoxTitle">
-              <img *ngIf="item.children[ind(i,j)].image != ''" src="{{item.children[ind(i,j)].image}}">
-              {{item.children[ind(i,j)].name}}
-            </div>
-          </li>
-
-        </ng-container>
-
-        <!-- Контейнер для детей  -->
-        <div class="dashChildContainer" [ngClass]="{hide: rowIndex !== rowIndexDisplayedChildren || !childs || childs.length === 0}">
-
-            <p-tree  [value]="childs" selectionMode="single" (onNodeSelect)="onNodeSelect($event)">
-              <ng-template let-node  pTemplate="picture" >
-                  <div class="dashChildItem" >
-                    <span class="pi pi-reply childDashIcon"></span>
-                    <span >{{node.label}}</span>
-                  </div>
-              </ng-template>
-            </p-tree>
-
-        </div>
-      </ng-container>
-
-  </ul>
+</ul>

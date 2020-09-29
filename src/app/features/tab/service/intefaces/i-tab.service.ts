@@ -23,7 +23,7 @@ export interface ITabService {
      * @param tab Таб
      * @returns Таб
      */
-    findTab(tab: ITab): ITab;
+    findTab(url: string): ITab;
     /**
      * Делает таб активным
      * @param tab Таб
