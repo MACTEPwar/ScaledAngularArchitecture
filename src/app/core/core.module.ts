@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { LocalizationModule } from './localization/localization.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -13,11 +14,12 @@ import { JwtInterceptor } from './interceptors/jwt.iterceptor';
   imports: [
     CommonModule,
     LocalizationModule,
-    MainMenuModule
+    MainMenuModule,
+    AuthenticationModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]
 })
 export class CoreModule { }

@@ -7,8 +7,10 @@ import { LayoutModule } from '@layout/layout.module';
 import { ViewsModule } from '@views/views.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
+// import { JwtInterceptor } from '@core/interceptors/jwt.iterceptor';
 
 import { AppComponent } from './app.component';
+// import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { AppComponent } from './app.component';
     ViewsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

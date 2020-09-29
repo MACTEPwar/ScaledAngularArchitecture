@@ -43,7 +43,7 @@ export const appLocalizationModuleChild = TranslateModule.forChild({
   loader: {
     provide: TranslateLoader,
     useFactory: HttpLoaderFactory,
-    deps: [HttpClient],
+    deps: [HttpClient]
   },
   missingTranslationHandler: {
     provide: MissingTranslationHandler,

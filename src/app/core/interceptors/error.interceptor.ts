@@ -9,6 +9,7 @@ import { IAuthenticationService } from '../authentication/services/interfaces/i-
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         @Inject('IAuthenticationService') private authenticationService: IAuthenticationService,
+        // private authenticationService: IAuthenticationService,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

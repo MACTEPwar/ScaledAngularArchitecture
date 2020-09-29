@@ -1,7 +1,8 @@
 import { IUser } from '../../shared/types/interfaces/i-user';
 import { ITabService } from '../tab/service/intefaces/i-tab.service';
-import { Inject } from '@angular/core';
+// import { Inject } from '@angular/core';
 import { IAuthenticationService } from '../../core/authentication/services/interfaces/i-authentication.service';
+import { Inject } from '@angular/core';
 
 export abstract class BaseAppDirective {
     currentUser: IUser;
