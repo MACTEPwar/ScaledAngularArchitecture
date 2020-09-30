@@ -6,6 +6,7 @@ import { MainMenuModule } from './main-menu/main-menu.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.iterceptor';
+import { NotificationModule } from './notification/notification.module';
 
 
 
@@ -16,6 +17,7 @@ import { JwtInterceptor } from './interceptors/jwt.iterceptor';
     LocalizationModule,
     MainMenuModule,
     AuthenticationModule,
+    NotificationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

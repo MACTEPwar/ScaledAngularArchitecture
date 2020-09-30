@@ -8,9 +8,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../shared/shared.module';
 import { TabModule } from '@features/tab/tab.module';
-import { LangSelectComponent } from './lang-select/lang-select.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { LangSelectModule } from '@shared/components/al-lang-select/lang-select.module';
 
 
 
@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    LangSelectComponent
   ],
   imports: [
     CommonModule,
@@ -29,11 +28,12 @@ import { FormsModule } from '@angular/forms';
     ScrollPanelModule,
     TabModule,
     FontAwesomeModule,
-    DropdownModule
+    DropdownModule,
+    LangSelectModule,
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class LayoutModule { }

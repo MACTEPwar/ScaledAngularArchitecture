@@ -1,10 +1,17 @@
-<header>
-    <al-header style="width: 100%;"></al-header>
-</header>
-<main>
+<div *ngIf="isLogin(); else elseNotLogin">
+    <!-- <al-login></al-login> -->
     <router-outlet></router-outlet>
-</main>
+</div>
+<ng-template #elseNotLogin>
+    <header>
+        <al-header style="width: 100%;"></al-header>
+    </header>
+    <main>
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </main>
 
-<footer>
-    <al-footer></al-footer>
-</footer>
+    <footer>
+        <app-footer></app-footer>
+    </footer>
+</ng-template>

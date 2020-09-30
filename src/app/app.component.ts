@@ -19,4 +19,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.translate.use(environment.defaultLocale);
   }
+
+  isLogin(): boolean {
+    return this.router.url.endsWith('login');
+  }
 }

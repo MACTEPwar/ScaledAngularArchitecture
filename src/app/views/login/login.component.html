@@ -1,0 +1,49 @@
+<section class="loginBg">
+    <div class="langbox">
+        <al-lang-select></al-lang-select>
+    </div>
+
+    <p-toast position="top-right" styleClass="loginAlert"></p-toast>
+
+    <div class="loginCardModal">
+        <div class="side" [style.background]="'url('+ imagePath + 'loginbg.png)'">
+
+        </div>
+        <div class="formbox">
+            <h2>{{ 'AUTH.H1' | translate }}</h2>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+
+                    <input id="username" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <label for="username">{{ 'login' | translate }}</label>
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">{{ 'enter_login' | translate }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input [type]="passType" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <label for="password">{{ 'password' | translate }}</label>
+                    <div class="passView" (click)="passView($event)">
+                        <fa-icon [icon]='eyePass'></fa-icon>
+                    </div>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">{{ 'enter_password' | translate }}</div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        {{ 'AUTH.ENTER' | translate }}
+      </button>
+
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</section>

@@ -53,7 +53,7 @@
         <tr>
             <th (click)="toggleModalChangeColumns(true);">
                 <span style="cursor: pointer">
-                    <fa-icon [icon]="stirng2faIcon('fas list')"></fa-icon>
+                    <fa-icon [icon]="'list'| faIcon"></fa-icon>
                 </span>
             </th>
             <th *ngFor="let col of table.selectedColumns" pResizableColumn pReorderableColumn [pSortableColumn]="col.ModelName + '.' + col.FieldName">
