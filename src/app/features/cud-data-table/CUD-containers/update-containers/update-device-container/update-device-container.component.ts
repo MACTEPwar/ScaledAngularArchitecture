@@ -8,7 +8,7 @@ import { FirmComponent, StructureComponent, DeviceModelComponent, CashboxCompone
 @Component({
   selector: 'al-update-device-container',
   templateUrl: './update-device-container.component.html',
-  styleUrls: ['./update-device-container.component.scss']
+  // styleUrls: ['./update-device-container.component.scss']
 })
 export class UpdateDeviceContainerComponent extends CudUpdateBase implements OnInit, AfterViewInit, ICudUpdate {
 

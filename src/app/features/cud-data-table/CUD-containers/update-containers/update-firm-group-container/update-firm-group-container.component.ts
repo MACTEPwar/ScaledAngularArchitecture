@@ -7,7 +7,7 @@ import { ICudUpdate } from '../../../baseclasses/i-cud-update';
 @Component({
   selector: 'al-update-firm-group-container',
   templateUrl: './update-firm-group-container.component.html',
-  styleUrls: ['./update-firm-group-container.component.scss']
+  // styleUrls: ['./update-firm-group-container.component.scss']
 })
 export class UpdateFirmGroupContainerComponent extends CudUpdateBase implements OnInit, ICudUpdate {
 

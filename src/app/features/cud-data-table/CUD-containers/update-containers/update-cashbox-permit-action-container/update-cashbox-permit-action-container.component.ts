@@ -8,7 +8,7 @@ import { CashboxPermitComponent } from '../../../components/cashboxPermit/cashbo
 @Component({
   selector: 'al-update-cashbox-permit-action-container',
   templateUrl: './update-cashbox-permit-action-container.component.html',
-  styleUrls: ['./update-cashbox-permit-action-container.component.scss']
+  // styleUrls: ['./update-cashbox-permit-action-container.component.scss']
 })
 export class UpdateCashboxPermitActionContainerComponent extends CudUpdateBase implements OnInit, AfterViewInit, ICudUpdate {
 

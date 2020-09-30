@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Constant, TemplateEntityColumn, TemplateEntity, EDataType } from '../../models/template-entity';
 import { DeviceLinkService } from './device-link.service';
-import { stirng2faIcon as s2fi } from '../../../../core/helper/helper-functions';
+import { Stirng2FaIcon as s2fi } from '@shared/helpers/string-2-faicon';
 import { TranslateService } from '@ngx-translate/core';
 
 /**

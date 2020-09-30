@@ -1,38 +1,38 @@
 <div class="table_toolbar" [ngClass]="{hideFilter: isChildren}">
     <al-toolbar [name]="'Обновить'" [icon]="'fal sync'" (call)="refreshTable()">
-        </app-toolbar>
-        <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()">
-            </app-toolbar>
-            <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
-                </app-toolbar>
-                <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
-                    </app-toolbar>
-                    <al-toolbar name="Фильтр" [icon]="'fal filter'" (call)="toggleFilterToolbar()">
-                        </app-toolbar>
+    </al-toolbar>
+    <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()">
+    </al-toolbar>
+    <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
+    </al-toolbar>
+    <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
+    </al-toolbar>
+    <al-toolbar name="Фильтр" [icon]="'fal filter'" (call)="toggleFilterToolbar()">
+    </al-toolbar>
 
-                        <span class="p-overlay-badge">
-        <al-toolbar name="Выборка" [icon]="'fal ballot-check'" (call)="op.toggle($event)"></app-toolbar>
+    <span class="p-overlay-badge">
+        <al-toolbar name="Выборка" [icon]="'fal ballot-check'" (call)="op.toggle($event)"></al-toolbar>
         <span *ngIf="table.selection.length > 0" class="toolbar-badge">{{table.selection.length}}</span>
-                        </span>
+    </span>
 
 
-                        <p-overlayPanel #op>
-                            <ng-template pTemplate>
-                                <!-- <p-col> -->
-                                <ul class="popover">
-                                    <li>
-                                        <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="'Все на странице'"></p-checkbox>
-                                    </li>
-                                    <li><span (click)="unselectAll()">Cнять все выделения</span></li>
-                                </ul>
-                                <!-- </p-col> -->
-                            </ng-template>
-                        </p-overlayPanel>
+    <p-overlayPanel #op>
+        <ng-template pTemplate>
+            <!-- <p-col> -->
+            <ul class="popover">
+                <li>
+                    <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="'Все на странице'"></p-checkbox>
+                </li>
+                <li><span (click)="unselectAll()">Cнять все выделения</span></li>
+            </ul>
+            <!-- </p-col> -->
+        </ng-template>
+    </p-overlayPanel>
 
-                        <!-- <p-dropdown [options]="[{label: 'Страница', value: 0}, {label: 'Cнять все выделения', value: 1}]">
+    <!-- <p-dropdown [options]="[{label: 'Страница', value: 0}, {label: 'Cнять все выделения', value: 1}]">
         <ng-template let-item pTemplate="selectedItem">
             <p-checkbox binary="true" [(ngModel)]="table.selectRow" [disabled]="true"></p-checkbox>
-            <al-toolbar name="выдиление" [icon]="'fal filter'"></app-toolbar>
+            <al-toolbar name="выдиление" [icon]="'fal filter'"></al-toolbar>
         </ng-template>
         <ng-template let-item pTemplate="item">
             <p-checkbox binary="true" (onChange)=onSelectedOrUnselectedPage($event) [(ngModel)]="table.selectPage" [label]="item.label" *ngIf="item.value === 0"></p-checkbox>
@@ -151,7 +151,7 @@
 <ng-template #dialog></ng-template>
 
 <p-sidebar [(visible)]="sidebarLinkedDataListDisplay" position="bottom" [showCloseIcon]="false" styleClass="sidebarBottomForLiksData">
-    <!-- <al-banks [isChildren]="true"></app-banks> -->
+    <!-- <al-banks [isChildren]="true"></al-banks> -->
     <ng-template #linkedDataList></ng-template>
 </p-sidebar>
 

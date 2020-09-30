@@ -1,6 +1,6 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver, Inject } from '@angular/core';
 import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { EmployeeService } from '../../services/concrete/employee.service';
 import { TableDirective } from '../../base-classes/table/table.component';
@@ -15,8 +15,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class EmployeeComponent extends TableDirective {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
     protected service: EmployeeService,
     cudService: CUDService,
     componentFactoryResolver: ComponentFactoryResolver,

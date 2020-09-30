@@ -6,7 +6,7 @@ import { TableService } from './table.service';
 export class TreeTableService extends TableService implements ITreeTableService {
     protected controller = '';
 
-    constructor(http: HttpClient) {
+    constructor(protected http: HttpClient) {
         super(http);
     }
 

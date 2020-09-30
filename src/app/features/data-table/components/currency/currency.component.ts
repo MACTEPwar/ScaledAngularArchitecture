@@ -1,5 +1,5 @@
-import {Component, ComponentFactoryResolver} from '@angular/core';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import {Component, ComponentFactoryResolver, Inject} from '@angular/core';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { TableDirective } from '../../base-classes/table/table.component';
 import {CurrencyService} from '../../services/concrete/currency.service';
@@ -14,8 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class CurrencyComponent extends TableDirective {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
     protected service: CurrencyService,
     cudService: CUDService,
     componentFactoryResolver: ComponentFactoryResolver,

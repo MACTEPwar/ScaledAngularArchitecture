@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'al-update-employee-container',
   templateUrl: './update-employee-container.component.html',
-  styleUrls: ['./update-employee-container.component.scss']
+  // styleUrls: ['./update-employee-container.component.scss']
 })
 export class UpdateEmployeeContainerComponent extends CudUpdateBase implements OnInit, ICudUpdate {
 

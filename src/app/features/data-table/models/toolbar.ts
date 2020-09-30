@@ -1,5 +1,5 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { stirng2faIcon } from '../../../core/helper/helper-functions';
+import { Stirng2FaIcon } from '@shared/helpers/string-2-faicon';
 
 export class ToolbarItem {
   type: string;
@@ -12,7 +12,7 @@ export class ToolbarItem {
     this.name = name;
     this.iconType = iconType;
     this.icon =
-      this.iconType === eIconType.fontawesome ? stirng2faIcon(icon) : icon;
+      this.iconType === eIconType.fontawesome ? Stirng2FaIcon(icon) : icon;
     console.log(this.icon);
   }
 }

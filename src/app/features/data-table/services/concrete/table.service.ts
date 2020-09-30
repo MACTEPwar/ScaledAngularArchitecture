@@ -1,17 +1,17 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { IdatatableService } from '../Interfaces/idatatable.service';
 import { FilterValue } from '../../models/filter-value';
-import { BaseService } from '../../../top-tab/base.service';
+// import { BaseService } from '../../../top-tab/base.service';
 import { Observable } from 'rxjs';
-import {CustomHttpParamEncoder} from '@core/helper/helper-functions';
+import { CustomHttpParamEncoder } from '@shared/helpers/custom-http-encoder';
+import { environment } from '../../../../../environments/environment';
 
-export class TableService extends BaseService implements IdatatableService {
+export class TableService implements IdatatableService {
   protected controller = '';
   protected identifier: string[] = [];
+  protected baseURL = environment.apiUrl;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(protected http: HttpClient) { }
 
   getController(): string {
     return this.controller;
@@ -70,7 +70,7 @@ export class TableService extends BaseService implements IdatatableService {
   getTemplate(short: boolean = false): Observable<any> {
     return this.http.get(
       this.baseURL +
-        `/api/catalogs/${this.controller}/header?shortHead=${short}`
+      `/api/catalogs/${this.controller}/header?shortHead=${short}`
     );
   }
 
@@ -105,10 +105,10 @@ export class TableService extends BaseService implements IdatatableService {
 
     const customHttpParamEncoder = new CustomHttpParamEncoder();
 
-    const encodeUrl: HttpParams = new HttpParams({encoder: customHttpParamEncoder}).append('typeName', type);
+    const encodeUrl: HttpParams = new HttpParams({ encoder: customHttpParamEncoder }).append('typeName', type);
 
     return this.http.get(
-      this.baseURL + `/api/enum/enum`, {params: encodeUrl}
+      this.baseURL + `/api/enum/enum`, { params: encodeUrl }
     );
   }
 

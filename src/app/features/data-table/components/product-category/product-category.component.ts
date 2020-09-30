@@ -1,6 +1,6 @@
-import { Component, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ChangeDetectorRef, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { ProductCategoryService } from '../../services/concrete/product-category.service';
@@ -14,8 +14,8 @@ import { TreeTableDirective } from '../../base-classes/tree-table/tree-table.com
 export class ProductCategoryComponent extends TreeTableDirective {
 
     constructor(
-        authenticationService: AuthenticationService,
-        tabService: ITabService,
+        @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+        @Inject('ITabService') tabService: ITabService,
         protected productCategoryService: ProductCategoryService,
         cudService: CUDService,
         cdr: ChangeDetectorRef,

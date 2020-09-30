@@ -4,7 +4,7 @@ import { CudItableService } from '../../../services/interfaces/cud-itable.servic
 @Component({
   selector: 'al-update-default-container',
   templateUrl: './update-default-container.component.html',
-  styleUrls: ['./update-default-container.component.scss'],
+  // styleUrls: ['./update-default-container.component.scss'],
 })
 export class UpdateDefaultContainerComponent implements OnInit {
   service: CudItableService;

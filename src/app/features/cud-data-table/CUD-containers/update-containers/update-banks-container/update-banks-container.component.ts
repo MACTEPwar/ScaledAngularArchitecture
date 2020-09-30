@@ -5,9 +5,9 @@ import { CudUpdateBase } from '../../../baseclasses/cud-update-base';
 import { ICudUpdate } from '../../../baseclasses/i-cud-update';
 
 @Component({
-  selector: 'al-update-banks-container',
+  // selector: 'al-update-banks-container',
   templateUrl: './update-banks-container.component.html',
-  styleUrls: ['./update-banks-container.component.scss']
+  // styleUrls: ['./update-banks-container.component.scss']
 })
 export class UpdateBanksContainerComponent extends CudUpdateBase implements OnInit, ICudUpdate {
 

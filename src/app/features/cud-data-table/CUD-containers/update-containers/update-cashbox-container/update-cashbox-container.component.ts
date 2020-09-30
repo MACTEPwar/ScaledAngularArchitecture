@@ -7,9 +7,9 @@ import { FirmComponent } from '../../../components/firm/firm.component';
 import { StructureComponent } from '../../../components/structure/structure.component';
 
 @Component({
-  selector: 'al-update-cashbox-container',
+  // selector: 'al-update-cashbox-container',
   templateUrl: './update-cashbox-container.component.html',
-  styleUrls: ['./update-cashbox-container.component.scss']
+  // styleUrls: ['./update-cashbox-container.component.scss']
 })
 export class UpdateCashboxContainerComponent extends CudUpdateBase implements OnInit, AfterViewInit, ICudUpdate {
 

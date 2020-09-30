@@ -7,7 +7,7 @@ import { ICudUpdate } from '../../../baseclasses/i-cud-update';
 @Component({
   selector: 'al-update-currency-container',
   templateUrl: './update-currency-container.component.html',
-  styleUrls: ['./update-currency-container.component.scss']
+  // styleUrls: ['./update-currency-container.component.scss']
 })
 export class UpdateCurrencyContainerComponent extends CudUpdateBase implements OnInit, ICudUpdate {
 

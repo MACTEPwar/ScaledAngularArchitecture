@@ -8,7 +8,7 @@ import { FirmComponent } from '../../../components';
 @Component({
   selector: 'al-update-structure-container',
   templateUrl: './update-structure-container.component.html',
-  styleUrls: ['./update-structure-container.component.scss']
+  // styleUrls: ['./update-structure-container.component.scss']
 })
 export class UpdateStructureContainerComponent extends CudUpdateBase implements OnInit, AfterViewInit, ICudUpdate {
 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TopTabPageDirective } from '../../../top-tab/top-tab-page.component';
-import { AuthenticationService } from '@core/authentication/services/concrete/authentication.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { TabPageDirective } from '@features/tab/cmponent/tab-page.directive';
+import { IAuthenticationService } from '@core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
   templateUrl: './create-firm.component.html',
   styleUrls: ['./create-firm.component.scss']
 })
-export class CreateFirmComponent extends TopTabPageDirective implements OnInit {
+export class CreateFirmComponent extends TabPageDirective implements OnInit {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
   ) {
     super(authenticationService, tabService);
     this.url = '/catalogs/firm/create';

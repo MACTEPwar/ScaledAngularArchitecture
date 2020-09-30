@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { Component, ComponentFactoryResolver, Inject } from '@angular/core';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { TableDirective } from '../../baseclasses/table.component';
 import { BankService } from '../../services/concrete/bank.service';
@@ -12,8 +12,8 @@ import { BankService } from '../../services/concrete/bank.service';
 export class BanksComponent extends TableDirective {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
     protected bankService: BankService,
     componentFactoryResolver: ComponentFactoryResolver
   ) {

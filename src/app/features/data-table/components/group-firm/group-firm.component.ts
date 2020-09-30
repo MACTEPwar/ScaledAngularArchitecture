@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { Component, ComponentFactoryResolver, Inject } from '@angular/core';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { TableDirective } from '../../base-classes/table/table.component';
@@ -14,8 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class GroupFirmComponent extends TableDirective {
 
     constructor(
-        authenticationService: AuthenticationService,
-        tabService: ITabService,
+        @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+        @Inject('ITabService') tabService: ITabService,
         protected groupFirmService: GroupFirmService,
         cudService: CUDService,
         componentFactoryResolver: ComponentFactoryResolver,

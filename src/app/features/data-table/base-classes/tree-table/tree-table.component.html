@@ -1,25 +1,25 @@
 <div class="table_toolbar" [ngClass]="{hideFilter: isChildren}">
     <al-toolbar [name]="'Обновить'" [icon]="'fal sync'" (call)="getDataLazy()">
-        </app-toolbar>
-        <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()" [disabled]="(table.selection.length > 1 || table.selection.length < 1)">
-            </app-toolbar>
-            <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
-                </app-toolbar>
-                <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
-                    </app-toolbar>
+    </al-toolbar>
+    <al-toolbar [name]="'Добавить'" [icon]="'fal plus'" (call)="create()" [disabled]="(table.selection.length > 1 || table.selection.length < 1)">
+    </al-toolbar>
+    <al-toolbar [disabled]="(table.selection.length > 1 || table.selection.length < 1)" [name]="'Изменить'" [icon]="'fal edit'" (call)="update()">
+    </al-toolbar>
+    <al-toolbar [disabled]="table.selection.length < 1" name="Удалить" [icon]="'fal trash'" (call)="delete()">
+    </al-toolbar>
 
-                    <ng-template *ngIf="table && table.allSerachFields && table.allSerachFields.length > 0">
-                        > 0
-                    </ng-template>
+    <ng-template *ngIf="table && table.allSerachFields && table.allSerachFields.length > 0">
+        > 0
+    </ng-template>
 
-                    <p-dropdown [options]="table.allSerachFields" optionLabel="DisplayName" [(ngModel)]="table.currentSerachField"></p-dropdown>
-                    <p-autoComplete [(ngModel)]="text" [suggestions]="results" [forceSelection]="true" (completeMethod)="search($event)" field="label" emptyMessage="Результатов не найдено" [style]="{width:'100%', position: 'absolute'}" (onSelect)="selectSearchItem($event);"
-                        (onFocus)="focusSearchInput($event)" (onBlur)="blueSearchInput($event)">
-                        <ng-template let-item pTemplate="item">
-                            <!-- {{item | json}} -->
-                            <p-breadcrumb [model]="item" [style]="{width:'100%'}"></p-breadcrumb>
-                        </ng-template>
-                    </p-autoComplete>
+    <p-dropdown [options]="table.allSerachFields" optionLabel="DisplayName" [(ngModel)]="table.currentSerachField"></p-dropdown>
+    <p-autoComplete [(ngModel)]="text" [suggestions]="results" [forceSelection]="true" (completeMethod)="search($event)" field="label" emptyMessage="Результатов не найдено" [style]="{width:'100%', position: 'absolute'}" (onSelect)="selectSearchItem($event);"
+        (onFocus)="focusSearchInput($event)" (onBlur)="blueSearchInput($event)">
+        <ng-template let-item pTemplate="item">
+            <!-- {{item | json}} -->
+            <p-breadcrumb [model]="item" [style]="{width:'100%'}"></p-breadcrumb>
+        </ng-template>
+    </p-autoComplete>
 </div>
 
 <p-treeTable class="mainTable catalogTable" selectionMode="multiple" selectionMode="multiple" currentPageReportTemplate="Показано с {first} по {last} из {totalRecords} записей" [value]="table.data" [columns]="table.selectedColumns" [resizableColumns]="true"

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterValue } from '../../models/filter-value';
 import { environment } from '../../../../../environments/environment';
-import { CustomHttpParamEncoder } from '@core/helper/helper-functions';
+import { CustomHttpParamEncoder } from '@shared/helpers/custom-http-encoder';
 
 @Injectable()
 export class DeviceLinkService {

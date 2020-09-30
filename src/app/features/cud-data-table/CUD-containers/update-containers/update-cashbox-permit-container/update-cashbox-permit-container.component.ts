@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'al-update-cashbox-permit-container',
   templateUrl: './update-cashbox-permit-container.component.html',
-  styleUrls: ['./update-cashbox-permit-container.component.scss']
+  // styleUrls: ['./update-cashbox-permit-container.component.scss']
 })
 export class UpdateCashboxPermitContainerComponent extends CudUpdateBase implements OnInit, ICudUpdate {
 

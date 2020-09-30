@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { Component, ComponentFactoryResolver, Inject } from '@angular/core';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { TableDirective } from '../../base-classes/table/table.component';
 import { FirmService } from '../../services/concrete/firm.service';
@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 export class FirmComponent extends TableDirective {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
     protected service: FirmService,
     cudService: CUDService,
     componentFactoryResolver: ComponentFactoryResolver,

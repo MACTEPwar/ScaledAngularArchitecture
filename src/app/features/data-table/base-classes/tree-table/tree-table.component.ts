@@ -4,7 +4,7 @@ import { IAuthenticationService } from '../../../../core/authentication/services
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 // import { stirng2faIcon as s2fi } from '../../../../core/helper/helper-functions';
-// import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
+import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
 import { TabPageDirective } from '../../../tab/cmponent/tab-page.directive';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { Constant, EDataType, TemplateEntity, TemplateEntityColumn } from '../../models/template-entity';
@@ -122,9 +122,9 @@ export abstract class TreeTableDirective extends TabPageDirective
 
   constructor(
     @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
-    @Inject('ITabService') tabService: ITabService,
+    @Inject('ITabService') @Inject('ITabService') tabService: ITabService,
     protected service: ITreeTableService,
-    // private cudService: CUDService,
+    private cudService: CUDService,
     private cdr: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private translateService: TranslateService

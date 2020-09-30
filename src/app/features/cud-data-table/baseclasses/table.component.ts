@@ -90,7 +90,7 @@ export abstract class TableDirective extends TabPageDirective
 
   protected constructor(
     @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
-    @Inject('ITabService') tabService: ITabService,
+    @Inject('ITabService') @Inject('ITabService') tabService: ITabService,
     protected service: CudItableService,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {

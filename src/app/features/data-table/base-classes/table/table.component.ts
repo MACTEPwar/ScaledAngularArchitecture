@@ -12,7 +12,7 @@ import { IAuthenticationService } from '../../../../core/authentication/services
 import { getDatePickerSettingsByLocale } from '../../../../core/localization/date-picker-locales';
 import { TranslateService } from '@ngx-translate/core';
 // import { stirng2faIcon as s2fi } from '../../../../core/helper/helper-functions';
-// import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
+import { CUDService } from '../../../cud-data-table/services/concrete/cud-service.service';
 import { TabPageDirective } from '../../../tab/cmponent/tab-page.directive';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 import { DeviceLinkComponent } from '../../components/device-link/device-link.component';
@@ -128,9 +128,9 @@ export abstract class TableDirective extends TabPageDirective
 
   protected constructor(
     @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
-    @Inject('ITabService') tabService: ITabService,
+    @Inject('ITabService') @Inject('ITabService') tabService: ITabService,
     protected service: IdatatableService,
-    // private cudService: CUDService,
+    private cudService: CUDService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private translateService: TranslateService,
     private router?: Router

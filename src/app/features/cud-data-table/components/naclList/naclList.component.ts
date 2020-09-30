@@ -1,7 +1,7 @@
-import {Component, ComponentFactoryResolver} from '@angular/core';
+import {Component, ComponentFactoryResolver, Inject} from '@angular/core';
 import { TableDirective } from '../../baseclasses/table.component';
 import {NaclListService} from '../../services/concrete/naclList.service';
-import { AuthenticationService } from '../../../../core/authentication/services/concrete/authentication.service';
+import { IAuthenticationService } from '../../../../core/authentication/services/interfaces/i-authentication.service';
 import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 
 @Component({
@@ -12,8 +12,8 @@ import { ITabService } from '../../../tab/service/intefaces/i-tab.service';
 export class NaclListComponent extends TableDirective {
 
   constructor(
-    authenticationService: AuthenticationService,
-    tabService: ITabService,
+    @Inject('IAuthenticationService') authenticationService: IAuthenticationService,
+    @Inject('ITabService') tabService: ITabService,
     protected service: NaclListService,
     componentFactoryResolver: ComponentFactoryResolver
   ) {
