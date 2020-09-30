@@ -20,6 +20,8 @@ export abstract class TabPageDirective extends BaseAppDirective implements OnIni
     }
 
     ngOnInit(): any {
+        console.log('TEST -->', this.url);
+        console.log('TEST -->', !this.tabService.findTab(this.url));
         if (!this.tabService.findTab(this.url)) {
             this.tabService.pushTab({
                 name: this.title,
@@ -29,7 +31,7 @@ export abstract class TabPageDirective extends BaseAppDirective implements OnIni
                 active: true
             });
         } else {
-            this.tabService.activateTab(this.tabService.tabList.find(f => f.url === this.url));
+            this.tabService.activateTab(this.tabService.findTab(this.url));
         }
     }
 }

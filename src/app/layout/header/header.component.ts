@@ -20,7 +20,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   public menu: IMainMenu[] = [];
-  public tabs: BehaviorSubject<Array<ITab>>;
+  // public tabs: BehaviorSubject<Array<ITab>>;
+  public tabs: Array<ITab> = new Array<ITab>();
   public myMenu: TNode[] = [];
   public displaySidebar = false;
 
@@ -38,10 +39,13 @@ export class HeaderComponent implements OnInit {
     @Inject('ITabService') private tabService: ITabService,
     private router: Router,
   ) {
-    this.tabs = new BehaviorSubject<Array<ITab>>(this.tabService.tabList);
-    this.tabs.subscribe(
-      s => this.tabService.tabList = s
-    );
+    // this.tabs = new BehaviorSubject<Array<ITab>>(this.tabService.tabList);
+    // this.tabs.subscribe(
+    //   s => this.tabService.tabList = s
+    // );
+    this.tabService.tabList.subscribe(tabs => {
+      this.tabs = tabs;
+    });
   }
 
   nodeSelect(e: any): void {
@@ -96,18 +100,24 @@ export class HeaderComponent implements OnInit {
   // }
 
   closeTab(event: Event, index: number): void {
-    if (this.tabs.getValue()[index].active) {
-      if (this.tabs.getValue().length > 1) {
-        this.clickTab(this.tabs.getValue()[index - 1]);
+    if (this.tabs[index].active) {
+      if (this.tabs.length > 1) {
+        this.clickTab(this.tabs[index - 1] || this.tabs[1]);
       } else {
         this.clickDashboard();
       }
     }
-    this.tabs.next(this.tabs.getValue().splice(index, 1));
+    this.tabService.dropTab(index);
+    // this.refreshTabs();
     event.stopPropagation();
   }
 
+  // refreshTabs(): void{
+  //   this.tabs = this.tabService.tabList;
+  // }
+
   clickTab(tab: ITab): void {
+    console.log('CLICK TAB -->', tab);
     this.tabService.activateTab(tab);
     this.router.navigate([tab.url]);
   }

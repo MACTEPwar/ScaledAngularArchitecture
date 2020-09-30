@@ -24,7 +24,7 @@ transform: translateX(-100%);">
 </p-sidebar>
 
 <div class="topMainLine">
-    <button (click)="displaySidebar = true" class="mainSideMenu"><fa-icon [icon]="'th-list'| faIcon"></fa-icon></button>
+    <button (click)="displaySidebar=true" class="mainSideMenu"><fa-icon [icon]="'th-list'| faIcon"></fa-icon></button>
 
     <div class="firstTab" (click)="clickDashboard()">
         <fa-icon [icon]="'th' | faIcon"></fa-icon>
@@ -33,7 +33,7 @@ transform: translateX(-100%);">
     <div style="width: calc(100% - 240px)">
         <p-scrollPanel #scrollPanel class="topTabScrollPanel">
             <ul mouseWheel class="topLineTab" style="margin-bottom: 0px;margin-top: 0px;" (mouseWheelUp)="onScrollTabsUp()" (mouseWheelDown)="onScrollTabsDown()" #scrollTabItems>
-                <li [ngClass]="{active:tab.active}" *ngFor="let tab of tabs| async; let index = index">
+                <li [ngClass]="{active:tab.active}" *ngFor="let tab of tabs; let index = index">
                     <div class="tabName" (click)="clickTab(tab)">{{tab.name}}</div>
                     <button class="topTabCloseIcon" *ngIf="!!tab.canClose" (click)="closeTab($event, index)">
                     <fa-icon [icon]="'times' | faIcon"></fa-icon>

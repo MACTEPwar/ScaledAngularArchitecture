@@ -1,6 +1,7 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { ITabService } from '../intefaces/i-tab.service';
 import { ITab } from '../../types/interface/i-tab';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TabService implements ITabService {
@@ -8,7 +9,7 @@ export class TabService implements ITabService {
   /**
    * Список табов
    */
-  tabList: Array<ITab>;
+  tabList: BehaviorSubject<Array<ITab>>;
 
   /**
    * Список ключевых полей
@@ -19,7 +20,7 @@ export class TabService implements ITabService {
     @Inject('uniq') @Optional() public uniq?: Array<string>
   ) {
     this.keys = uniq || new Array<string>('url');
-    this.tabList = new Array<ITab>();
+    this.tabList = new BehaviorSubject<Array<ITab>>(new Array<ITab>());
   }
 
   /**
@@ -29,8 +30,10 @@ export class TabService implements ITabService {
    * @returns true если добавил
    */
   pushTab(tab: ITab, index?: number): boolean {
-    index = index || this.tabList.length;
-    this.tabList = this.tabList.splice(index, 0, tab);
+    index = index || this.tabList.getValue().length;
+    const temp = this.tabList.getValue();
+    temp.splice(index, 0, tab);
+    this.tabList.next(temp);
     return true;
   }
 
@@ -41,7 +44,7 @@ export class TabService implements ITabService {
    */
   dropTab(value: ITab | number): boolean {
     let index = 0;
-    const oldValue = this.tabList;
+    const oldValue = this.tabList.getValue();
     if (typeof value === 'number') {
       // if number
       index = value > -1 ? value as number : 0;
@@ -57,7 +60,8 @@ export class TabService implements ITabService {
       };
       index = oldValue.findIndex(finder);
     }
-    this.tabList = oldValue.splice(index, 1);
+    oldValue.splice(index, 1);
+    this.tabList.next(oldValue);
     return true;
   }
 
@@ -74,7 +78,7 @@ export class TabService implements ITabService {
         return true;
       }
     };
-    return this.tabList.find(finder);
+    return this.tabList.getValue().find(finder);
   }
 
   /**
@@ -82,7 +86,7 @@ export class TabService implements ITabService {
    * @param tab Таб
    */
   activateTab(tab: ITab): void {
-    this.tabList.forEach((element) => {
+    this.tabList.getValue().forEach((element) => {
       element.active = element.url === tab.url;
     });
   }
@@ -91,7 +95,7 @@ export class TabService implements ITabService {
    * Делает НЕ активными все табы
    */
   disactivateAllTabs(): void {
-    this.tabList.forEach((element) => {
+    this.tabList.getValue().forEach((element) => {
       element.active = false;
     });
   }

@@ -1,10 +1,11 @@
+import { BehaviorSubject } from 'rxjs';
 import { ITab } from '../../types/interface/i-tab';
 
 export interface ITabService {
     /**
      * Список табов
      */
-    tabList: Array<ITab>;
+    tabList: BehaviorSubject<Array<ITab>>;
     /**
      * Дорбавляет новую вкладку
      * @param tab вкладка
